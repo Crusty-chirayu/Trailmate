@@ -65,14 +65,14 @@ export default function NewTripPage() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="container mx-auto px-4 py-8 max-w-2xl">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header */}
         <div className="mb-8">
-          <Button href="/trips" variant="ghost" className="mb-4">
+          <Button href="/trips" variant="ghost" className="mb-6">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Trips
           </Button>
-          <h1 className="text-3xl font-bold mb-2">Plan New Adventure</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-1">Plan New Adventure</h1>
           <p className="text-muted-foreground">
             Create a new trip and start planning your outdoor experience
           </p>

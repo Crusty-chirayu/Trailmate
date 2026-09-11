@@ -52,7 +52,7 @@ export default function TrailView({ profile, route, backHref, backLabel, channel
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="container mx-auto px-4 py-6 max-w-5xl">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <Button href={backHref} variant="ghost" className="mb-4">
           <ArrowLeft className="h-4 w-4 mr-2" />
           {backLabel}
@@ -60,7 +60,7 @@ export default function TrailView({ profile, route, backHref, backLabel, channel
 
         <header className="mb-6">
           <Badge variant="secondary" className="mb-2">{channelLabel}</Badge>
-          <h1 className="text-3xl font-bold mb-2">{profile.title}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">{profile.title}</h1>
           <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-1.5">
               <Activity className="h-4 w-4" aria-hidden />

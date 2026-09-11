@@ -81,7 +81,7 @@ export default function TrackingDashboard({ tripId, tripTitle, userId }: Trackin
         {status === 'tracking' ? 'Recording in progress' : `Status: ${status}`}
       </div>
 
-      <div className="container mx-auto max-w-7xl px-4 py-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header */}
         <div className="mb-5">
           <Button href={`/trips/${tripId}`} variant="ghost" size="sm" className="-ml-2 mb-3">
@@ -90,7 +90,7 @@ export default function TrackingDashboard({ tripId, tripTitle, userId }: Trackin
           </Button>
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
-              <h1 className="text-2xl font-bold sm:text-3xl">{tripTitle}</h1>
+              <h1 className="text-2xl font-bold sm:text-3xl tracking-tight">{tripTitle}</h1>
               <StatusIndicator
                 status={status}
                 syncState={syncState}

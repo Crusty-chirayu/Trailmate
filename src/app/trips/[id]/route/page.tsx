@@ -38,12 +38,12 @@ export default async function TripRoutePage({ params }: { params: Promise<{ id: 
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="container mx-auto px-4 py-6 max-w-4xl">
-        <Button href={`/trips/${id}`} variant="ghost" className="mb-4">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <Button href={`/trips/${id}`} variant="ghost" className="mb-6">
           <ArrowLeft className="h-4 w-4 mr-2" />
           {tripTitle}
         </Button>
-        <h1 className="text-2xl font-bold mb-6">Route History</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-8">Route History</h1>
 
         {historyPoints.length === 0 ? (
           <div className="rounded-md border border-dashed border-border p-12 text-center">

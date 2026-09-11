@@ -121,10 +121,10 @@ export default async function TripDetailPage({
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header */}
         <div className="mb-8">
-          <Button href="/trips" variant="ghost" className="mb-4">
+          <Button href="/trips" variant="ghost" className="mb-6">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Trips
           </Button>
