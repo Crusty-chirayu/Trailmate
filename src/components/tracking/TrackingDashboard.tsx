@@ -106,7 +106,7 @@ export default function TrackingDashboard({ tripId, tripTitle, userId }: Trackin
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
           {/* Map workspace */}
           <section aria-label="Route map" className="order-1 lg:order-none">
-            <div className="h-[52vh] overflow-hidden rounded-lg border border-border lg:h-[70vh]">
+            <div className="h-[52vh] overflow-hidden rounded-xl border border-border lg:h-[70vh]">
               <TrackingMap points={mapPoints} current={current} />
             </div>
           </section>
@@ -114,7 +114,7 @@ export default function TrackingDashboard({ tripId, tripTitle, userId }: Trackin
           {/* Instrument panel */}
           <section aria-label="Tracking instruments" className="order-2 space-y-4 lg:order-none">
             {/* Primary metrics */}
-            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-border bg-border">
+            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border">
               <MetricReadout label="Distance" value={formatDistance(stats.distance)} className="bg-card" accent />
               <MetricReadout label="Elapsed" value={formatTime(liveElapsed)} className="bg-card" />
               <MetricReadout label="Avg speed" value={formatSpeed(stats.averageSpeed)} className="bg-card" />
@@ -122,7 +122,7 @@ export default function TrackingDashboard({ tripId, tripTitle, userId }: Trackin
             </div>
 
             {/* Elevation detail */}
-            <div className="rounded-lg border border-border bg-card p-4">
+            <div className="rounded-xl border border-border bg-card p-4">
               <h2 className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">Elevation</h2>
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -150,19 +150,19 @@ export default function TrackingDashboard({ tripId, tripTitle, userId }: Trackin
             </div>
 
             {/* Moving time */}
-            <div className="flex items-center justify-between rounded-lg border border-border bg-card p-4">
+            <div className="flex items-center justify-between rounded-xl border border-border bg-card p-4">
               <span className="text-xs uppercase tracking-widest text-muted-foreground">Moving time</span>
               <span className="font-mono text-lg tabular-nums">{formatTime(stats.movingTime)}</span>
             </div>
 
             {/* Route import */}
-            <div className="rounded-lg border border-border bg-card p-4">
+            <div className="rounded-xl border border-border bg-card p-4">
               <h2 className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">Import route</h2>
               <RouteImportButton tripId={tripId} onQueued={importRoutePoints} />
             </div>
 
             {/* Controls */}
-            <div className="rounded-lg border border-border bg-card p-4">
+            <div className="rounded-xl border border-border bg-card p-4">
               <TrackingControls
                 canStart={canStart}
                 canRetry={canRetry}

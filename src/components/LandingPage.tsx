@@ -75,7 +75,7 @@ export default function LandingPage() {
           <div id='mobile-menu' className='lg:hidden bg-background/95 backdrop-blur-md border-b border-border'>
             <div className='section-container py-4 space-y-1'>
               {NAV_LINKS.map(({ label, href }) => (
-                <button key={label} onClick={() => scrollToSection(href.slice(1))} className='block w-full text-left px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-lg transition-colors'>{label}</button>
+                <button key={label} onClick={() => scrollToSection(href.slice(1))} className='block w-full text-left px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-colors'>{label}</button>
               ))}
               <div className='pt-4 px-4 space-y-3 border-t border-border mt-4'>
                 <Link href='/login' className='block'><Button variant='outline' className='w-full'>Sign in</Button></Link>

@@ -86,7 +86,7 @@ export default function Navigation() {
             ) : user ? (
               <>
                 {AUTH_NAV_LINKS.map(({ href, label }) => (
-                  <Link key={href} href={href} className={cn('block px-4 py-3 text-sm font-medium rounded-lg transition-colors', isActive(href) ? 'bg-accent text-foreground' : 'text-muted-foreground hover:bg-accent/50 hover:text-foreground')} onClick={() => setMobileMenuOpen(false)}>
+                  <Link key={href} href={href} className={cn('block px-4 py-3 text-sm font-medium rounded-md transition-colors', isActive(href) ? 'bg-accent text-foreground' : 'text-muted-foreground hover:bg-accent/50 hover:text-foreground')} onClick={() => setMobileMenuOpen(false)}>
                     {label}
                   </Link>
                 ))}
@@ -97,7 +97,7 @@ export default function Navigation() {
               </>
             ) : (
               <>
-                <Link href="/login" className="block px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>Sign in</Link>
+                <Link href="/login" className="block px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-colors" onClick={() => setMobileMenuOpen(false)}>Sign in</Link>
                 <div className="pt-4 px-4"><Link href="/signup" className="block" onClick={() => setMobileMenuOpen(false)}><Button className="w-full">Start Exploring</Button></Link></div>
               </>
             )}

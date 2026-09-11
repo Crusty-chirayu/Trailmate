@@ -98,7 +98,7 @@ export default function TripShareControls({
   }
 
   return (
-    <section aria-labelledby="share-heading" className="rounded-lg border border-border bg-card p-4">
+    <section aria-labelledby="share-heading" className="rounded-xl border border-border bg-card p-4">
       <h2 id="share-heading" className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">
         Share trip
       </h2>

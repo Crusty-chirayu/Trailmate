@@ -5,6 +5,8 @@ import { createClient, mapAuthError } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Mountain, ArrowRight } from 'lucide-react'
+import { Input } from '@/components/ui/Input'
+import { Button } from '@/components/ui/Button'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -78,7 +80,7 @@ export default function LoginPage() {
           </div>
 
           {error && (
-            <div className="p-4 text-sm text-destructive bg-destructive/10 rounded-lg border border-destructive/20" role="alert">
+            <div className="p-4 text-sm text-destructive bg-destructive/10 rounded-xl border border-destructive/20" role="alert">
               {error}
             </div>
           )}
@@ -88,14 +90,14 @@ export default function LoginPage() {
               <label htmlFor="email" className="block text-sm font-medium">
                 Email
               </label>
-              <input
+              <Input
                 id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 autoComplete="email"
-                className="flex h-11 w-full rounded-lg border border-input bg-background px-4 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                className="h-11"
                 placeholder="you@example.com"
               />
             </div>
@@ -104,26 +106,22 @@ export default function LoginPage() {
               <label htmlFor="password" className="block text-sm font-medium">
                 Password
               </label>
-              <input
+              <Input
                 id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 autoComplete="current-password"
-                className="flex h-11 w-full rounded-lg border border-input bg-background px-4 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                className="h-11"
                 placeholder="••••••••"
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none h-11"
-            >
+            <Button type="submit" size="lg" className="w-full font-semibold" disabled={loading}>
               {loading ? 'Signing in...' : 'Sign In'}
               {!loading && <ArrowRight className="ml-2 h-4 w-4" />}
-            </button>
+            </Button>
           </form>
 
           <p className="text-center text-sm text-muted-foreground">

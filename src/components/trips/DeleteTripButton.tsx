@@ -84,7 +84,7 @@ export default function DeleteTripButton({
         }}
       >
         <div
-          className="w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-lg"
+          className="w-full max-w-md rounded-xl border border-border bg-card p-6 shadow-lg"
           onClick={e => e.stopPropagation()}
         >
           <h2 id="delete-trip-title" className="text-lg font-semibold mb-2">

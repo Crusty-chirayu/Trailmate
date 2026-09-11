@@ -5,6 +5,8 @@ import { createClient, mapAuthError } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Mountain, ArrowRight } from 'lucide-react'
+import { Input } from '@/components/ui/Input'
+import { Button } from '@/components/ui/Button'
 
 export default function SignupPage() {
   const [email, setEmail] = useState('')
@@ -73,20 +75,21 @@ export default function SignupPage() {
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Create your account</h1>
             <p className="text-muted-foreground">Start planning your outdoor adventures</p>
           </div>
-          {error && <div className="p-4 text-sm text-destructive bg-destructive/10 rounded-lg border border-destructive/20" role="alert">{error}</div>}
-          {message && <div className="p-4 text-sm text-emerald-500 bg-emerald-500/10 rounded-lg border border-emerald-500/20" role="status">{message}</div>}
+          {error && <div className="p-4 text-sm text-destructive bg-destructive/10 rounded-xl border border-destructive/20" role="alert">{error}</div>}
+          {message && <div className="p-4 text-sm text-emerald-500 bg-emerald-500/10 rounded-xl border border-emerald-500/20" role="status">{message}</div>}
           <form onSubmit={handleSignup} className="space-y-5">
             <div className="space-y-2">
               <label htmlFor="email" className="block text-sm font-medium">Email</label>
-              <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" className="flex h-11 w-full rounded-lg border border-input bg-background px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="you@example.com" />
+              <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" className="h-11" placeholder="you@example.com" />
             </div>
             <div className="space-y-2">
               <label htmlFor="password" className="block text-sm font-medium">Password</label>
-              <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} autoComplete="new-password" className="flex h-11 w-full rounded-lg border border-input bg-background px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="••••••••" />
+              <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} autoComplete="new-password" className="h-11" placeholder="••••••••" aria-describedby="password-hint" />
+              <p id="password-hint" className="text-xs text-muted-foreground">At least 6 characters.</p>
             </div>
-            <button type="submit" disabled={loading} className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none h-11">
+            <Button type="submit" size="lg" className="w-full font-semibold" disabled={loading}>
               {loading ? 'Creating account...' : 'Create Account'}{!loading && <ArrowRight className="ml-2 h-4 w-4" />}
-            </button>
+            </Button>
           </form>
           <p className="text-center text-sm text-muted-foreground">Already have an account?{' '}<Link href="/login" className="font-medium text-primary hover:underline">Sign in</Link></p>
         </div>

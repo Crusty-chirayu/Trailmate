@@ -99,7 +99,7 @@ export default function ConfirmActionButton({
           }}
         >
           <div
-            className="w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-lg"
+            className="w-full max-w-md rounded-xl border border-border bg-card p-6 shadow-lg"
             onClick={e => e.stopPropagation()}
           >
             <h2 id="confirm-action-title" className="text-lg font-semibold mb-2">
