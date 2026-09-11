@@ -30,6 +30,10 @@ describe('mapAuthError', () => {
     expect(mapAuthError('Invalid login credentials')).toBe('Invalid login credentials')
   })
 
+  it('passes through auth-link errors (expired recovery links) untouched', () => {
+    expect(mapAuthError('Email link is invalid or has expired')).toBe('Email link is invalid or has expired')
+  })
+
   it('provides a fallback for undefined errors', () => {
     expect(mapAuthError(undefined)).toContain('unexpected error')
   })
