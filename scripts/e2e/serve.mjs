@@ -22,6 +22,14 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '.
 const port = Number(process.env.E2E_PORT || 3100)
 const buildIdFile = path.join(root, '.next', 'BUILD_ID')
 
+/**
+ * On Windows, `npm` and `npx` are `.cmd` shims, and `spawn` without a shell
+ * cannot execute them (ENOENT). `shell: true` lets both platforms resolve the
+ * shim the same way a user's terminal would.
+ */
+const isWindows = process.platform === 'win32'
+const shellOption = { shell: isWindows }
+
 /** Build once with placeholder credentials if no production build exists. */
 function buildIfNeeded() {
   if (existsSync(buildIdFile)) {
@@ -32,7 +40,7 @@ function buildIfNeeded() {
     NEXT_PUBLIC_SUPABASE_URL: 'https://dummy.invalid',
     NEXT_PUBLIC_SUPABASE_ANON_KEY: 'dummy-anon-key',
   }
-  const result = spawnSync('npm', ['run', 'build'], { cwd: root, env, stdio: 'inherit' })
+  const result = spawnSync('npm', ['run', 'build'], { cwd: root, env, stdio: 'inherit', ...shellOption })
   if (result.status !== 0) {
     console.error('E2E: production build failed.')
     process.exit(result.status ?? 1)
@@ -51,6 +59,7 @@ const server = spawn('npx', ['next', 'start', '-p', String(port)], {
   cwd: root,
   env: serverEnv,
   stdio: 'inherit',
+  ...shellOption,
 })
 
 function shutdown(signal) {
@@ -61,4 +70,7 @@ function shutdown(signal) {
 process.on('SIGTERM', () => shutdown('SIGTERM'))
 process.on('SIGINT', () => shutdown('SIGINT'))
 process.on('SIGHUP', () => shutdown('SIGHUP'))
+process.on('exit', () => {
+  try { server.kill() } catch { /* already gone */ }
+})
 server.on('exit', (code) => process.exit(code ?? 0))
