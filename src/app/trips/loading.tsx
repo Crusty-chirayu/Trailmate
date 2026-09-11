@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/components/ui/Card'
 export default function TripsLoading() {
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="container mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="h-8 w-48 bg-muted animate-pulse rounded mb-8" aria-hidden="true" />
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
           {Array.from({ length: 5 }).map((_, i) => (

@@ -5,7 +5,7 @@ import { MapPin } from 'lucide-react'
 export default function TripNotFound() {
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="container mx-auto px-4 py-8 max-w-xl">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <Card>
           <CardHeader className="text-center">
             <MapPin className="h-12 w-12 text-muted-foreground mx-auto mb-3" aria-hidden="true" />

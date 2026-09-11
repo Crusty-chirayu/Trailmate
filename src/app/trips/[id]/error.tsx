@@ -11,7 +11,7 @@ export default function TripDetailError({ error, reset }: { error: Error & { dig
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="container mx-auto px-4 py-8 max-w-xl">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <Card>
           <CardHeader>
             <CardTitle>Unable to load trip</CardTitle>
