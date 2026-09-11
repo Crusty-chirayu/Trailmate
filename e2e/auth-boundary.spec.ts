@@ -10,14 +10,14 @@ test.describe('public auth pages', () => {
     await page.goto('/login')
 
     await expect(
-      page.getByRole('heading', { name: 'Welcome Back' }),
+      page.getByRole('heading', { name: 'Welcome back' }),
     ).toBeVisible()
     await expect(page.locator('input#email')).toBeVisible()
     await expect(page.locator('input#password')).toBeVisible()
     await expect(page.getByRole('button', { name: 'Sign In' })).toBeVisible()
     // Primary auth-flow navigation still works without JavaScript.
     await expect(
-      page.getByRole('link', { name: 'Sign up' }),
+      page.getByRole('link', { name: 'Create one' }),
     ).toHaveAttribute('href', '/signup')
   })
 
@@ -25,11 +25,11 @@ test.describe('public auth pages', () => {
     await page.goto('/signup')
 
     await expect(
-      page.getByRole('heading', { name: 'Create Account' }),
+      page.getByRole('heading', { name: 'Create your account' }),
     ).toBeVisible()
     await expect(page.locator('input#email')).toBeVisible()
     await expect(page.locator('input#password')).toBeVisible()
-    await expect(page.getByRole('button', { name: 'Sign Up' })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Create Account' })).toBeVisible()
     await expect(
       page.getByRole('link', { name: 'Sign in' }),
     ).toHaveAttribute('href', '/login')
@@ -66,7 +66,7 @@ test.describe('protected routes fail closed', () => {
 
       await expect(page).toHaveURL(/\/login$/)
       await expect(
-        page.getByRole('heading', { name: 'Welcome Back' }),
+        page.getByRole('heading', { name: 'Welcome back' }),
       ).toBeVisible()
     })
   }
