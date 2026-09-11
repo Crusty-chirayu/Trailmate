@@ -32,14 +32,14 @@ export default async function GearPage() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="container mx-auto px-4 py-8 max-w-3xl">
-        <Button href="/dashboard" variant="ghost" className="mb-4">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <Button href="/dashboard" variant="ghost" className="mb-6">
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back
         </Button>
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold">Gear</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-1">Gear</h1>
             <p className="text-muted-foreground">Reusable packing lists for your expeditions</p>
           </div>
         </div>
@@ -82,21 +82,21 @@ export default async function GearPage() {
         )}
 
         {templates.length > 0 && (
-          <ul className="space-y-3">
+          <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {templates.map(template => (
               <li key={template.id}>
                 <a
                   href={`/gear/${template.id}`}
-                  className="block rounded-md border border-border p-4 transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="block rounded-xl border border-border bg-card/50 p-4 transition-colors hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium">{template.name}</p>
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0">
+                      <p className="font-medium truncate">{template.name}</p>
                       {template.description && (
-                        <p className="text-sm text-muted-foreground truncate">{template.description}</p>
+                        <p className="text-sm text-muted-foreground line-clamp-2 mt-0.5">{template.description}</p>
                       )}
                     </div>
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-xs text-muted-foreground shrink-0 tabular-nums">
                       {new Date(template.updatedAt).toLocaleDateString()}
                     </span>
                   </div>
