@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/hooks/useAuth'
 import { createClient } from '@/lib/supabase/client'
 import { Mountain, LogOut, User, Menu, X, LayoutDashboard, Route, Backpack } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { Button } from '@/components/ui/Button'
 import { cn } from '@/utils/utils'
 
@@ -18,8 +18,32 @@ const AUTH_NAV_LINKS = [
 export default function Navigation() {
   const { user, loading } = useAuth()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  const menuRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const supabase = createClient()
+
+  // Accessible mobile menu: Escape closes it, focus is moved into the menu
+  // when it opens and returned to the trigger when it closes.
+  const closeMobileMenu = useCallback(() => {
+    if (!mobileMenuOpen) return
+    setMobileMenuOpen(false)
+    triggerRef.current?.focus()
+  }, [mobileMenuOpen])
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return
+    // Move focus into the menu so keyboard users don't get stranded.
+    menuRef.current?.focus()
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        closeMobileMenu()
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [mobileMenuOpen, closeMobileMenu])
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
@@ -33,8 +57,11 @@ export default function Navigation() {
     return pathname?.startsWith(href)
   }
 
-  const isAuthPage = pathname === '/login' || pathname === '/signup'
-  if (isAuthPage) return null
+  // The landing and auth pages provide their own dedicated headers, so the
+  // shared app navigation is omitted there to avoid two overlapping headers.
+  const isStandalonePage =
+    pathname === '/' || pathname === '/login' || pathname === '/signup'
+  if (isStandalonePage) return null
 
   return (
     <nav className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-md">
@@ -74,13 +101,13 @@ export default function Navigation() {
             )}
           </div>
 
-          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden p-2 text-foreground hover:text-primary transition-colors" aria-expanded={mobileMenuOpen} aria-controls="mobile-menu" aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}>
+          <button ref={triggerRef} onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden p-2 text-foreground hover:text-primary transition-colors" aria-expanded={mobileMenuOpen} aria-controls="mobile-menu" aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}>
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
         {mobileMenuOpen && (
-          <div id="mobile-menu" className="md:hidden py-4 space-y-1 border-t border-border">
+          <div ref={menuRef} id="mobile-menu" tabIndex={-1} className="md:hidden py-4 space-y-1 border-t border-border">
             {loading ? (
               <div className="text-sm text-muted-foreground">Loading...</div>
             ) : user ? (

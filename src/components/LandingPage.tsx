@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { Mountain, MapPin, Route, Backpack, BarChart3, Share2, ArrowRight, Menu, X, ChevronDown, Compass, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
@@ -28,6 +28,8 @@ export default function LandingPage() {
   const [activeSection, setActiveSection] = useState('')
   const [scrollY, setScrollY] = useState(0)
   const [videoLoaded, setVideoLoaded] = useState(false)
+const menuTriggerRef = useRef<HTMLButtonElement>(null)
+  const menuRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
@@ -48,6 +50,26 @@ export default function LandingPage() {
     const el = document.getElementById(id)
     if (el) { el.scrollIntoView({ behavior: 'smooth' }); setMobileMenuOpen(false) }
   }, [])
+// Accessible mobile menu: Escape closes it, focus is moved into the menu
+  // when it opens and returned to the trigger when it closes.
+  const closeMenu = useCallback(() => {
+    if (!mobileMenuOpen) return
+    setMobileMenuOpen(false)
+    menuTriggerRef.current?.focus()
+  }, [mobileMenuOpen])
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return
+    menuRef.current?.focus()
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        closeMenu()
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [mobileMenuOpen, closeMenu])
 
   return (
     <div className='min-h-screen bg-background'>
@@ -67,12 +89,12 @@ export default function LandingPage() {
             <Link href='/login' className='text-sm font-medium text-muted-foreground hover:text-foreground transition-colors'>Sign in</Link>
             <Link href='/signup'><Button size='sm' className='rounded-full px-6'>Start Exploring</Button></Link>
           </div>
-          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className='lg:hidden p-2 text-foreground hover:text-primary transition-colors' aria-expanded={mobileMenuOpen} aria-controls='mobile-menu' aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}>
+          <button ref={menuTriggerRef} onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className='lg:hidden p-2 text-foreground hover:text-primary transition-colors' aria-expanded={mobileMenuOpen} aria-controls='mobile-menu' aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}>
             {mobileMenuOpen ? <X className='h-6 w-6' /> : <Menu className='h-6 w-6' />}
           </button>
         </nav>
         {mobileMenuOpen && (
-          <div id='mobile-menu' className='lg:hidden bg-background/95 backdrop-blur-md border-b border-border'>
+          <div ref={menuRef} id='mobile-menu' tabIndex={-1} className='lg:hidden bg-background/95 backdrop-blur-md border-b border-border'>
             <div className='section-container py-4 space-y-1'>
               {NAV_LINKS.map(({ label, href }) => (
                 <button key={label} onClick={() => scrollToSection(href.slice(1))} className='block w-full text-left px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-colors'>{label}</button>

@@ -74,3 +74,7 @@ export const config = {
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|woff2)$).*)',
   ],
 }
+
+// Next.js middleware entry point: the named `proxy` export is also the default
+// export so the framework picks this file up as middleware automatically.
+export default proxy
