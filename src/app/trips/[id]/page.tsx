@@ -348,7 +348,7 @@ async function GearCard({ tripId }: { tripId: string }) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Progress value={progress.percentage} className="mb-3" />
+        <Progress value={progress.percentage} className="mb-3" aria-label={`Packing progress ${progress.percentage}%`} />
         <Button href={`/trips/${tripId}/pack`} size="sm">
           {progress.percentage === 100 ? 'View checklist' : 'Continue packing'}
         </Button>
