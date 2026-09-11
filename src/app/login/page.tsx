@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import { createClient, mapAuthError } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Mountain, ArrowRight } from 'lucide-react'
@@ -30,7 +30,7 @@ export default function LoginPage() {
       router.push('/dashboard')
       router.refresh()
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Sign-in failed. Please try again.')
+      setError(error instanceof Error ? mapAuthError(error.message) : mapAuthError(undefined))
     } finally {
       setLoading(false)
     }

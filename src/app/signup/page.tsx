@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import { createClient, mapAuthError } from '@/lib/supabase/client'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Mountain, ArrowRight } from 'lucide-react'
 
@@ -11,6 +12,7 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [message, setMessage] = useState<string | null>(null)
+  const router = useRouter()
   const supabase = createClient()
 
   const handleSignup = async (e: React.FormEvent) => {
@@ -20,16 +22,28 @@ export default function SignupPage() {
     setMessage(null)
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        },
       })
 
       if (error) throw error
 
+      // When email confirmation is disabled, Supabase returns an active
+      // session immediately — send the user into the app instead of telling
+      // them to check their inbox.
+      if (data?.session) {
+        router.push('/dashboard')
+        router.refresh()
+        return
+      }
+
       setMessage('Check your email for the confirmation link!')
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Sign-up failed. Please try again.')
+      setError(error instanceof Error ? mapAuthError(error.message) : mapAuthError(undefined))
     } finally {
       setLoading(false)
     }
