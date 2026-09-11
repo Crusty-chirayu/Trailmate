@@ -3,7 +3,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
-import { Mountain, MapPin, Calendar, Plus } from 'lucide-react'
+import { Mountain, MapPin, Calendar, Plus, Route, Clock } from 'lucide-react'
+import { formatDistance } from '@/lib/tracking/format'
+import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'
 
@@ -33,53 +35,45 @@ export default async function TripsPage({
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="container mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-3xl font-bold mb-2">Your Adventures</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-1">Your Adventures</h1>
             <p className="text-muted-foreground">
               Manage your outdoor trips and expeditions
             </p>
           </div>
-          <Button href="/trips/new">
-            <Plus className="h-4 w-4 mr-2" />
-            New Trip
-          </Button>
+          <Link href="/trips/new">
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              New Trip
+            </Button>
+          </Link>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold">{statusCounts.total}</div>
-              <div className="text-sm text-muted-foreground">Total</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold text-amber-500">{statusCounts.planned}</div>
-              <div className="text-sm text-muted-foreground">Planned</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold text-emerald-500">{statusCounts.active}</div>
-              <div className="text-sm text-muted-foreground">Active</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold text-primary">{statusCounts.completed}</div>
-              <div className="text-sm text-muted-foreground">Completed</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold text-destructive">{statusCounts.cancelled}</div>
-              <div className="text-sm text-muted-foreground">Cancelled</div>
-            </CardContent>
-          </Card>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-8">
+          <div className="rounded-xl border border-border bg-card/50 p-4">
+            <div className="text-2xl font-bold tabular-nums">{statusCounts.total}</div>
+            <div className="text-xs text-muted-foreground mt-1">Total</div>
+          </div>
+          <div className="rounded-xl border border-border bg-card/50 p-4">
+            <div className="text-2xl font-bold tabular-nums text-amber-400">{statusCounts.planned}</div>
+            <div className="text-xs text-muted-foreground mt-1">Planned</div>
+          </div>
+          <div className="rounded-xl border border-border bg-card/50 p-4">
+            <div className="text-2xl font-bold tabular-nums text-emerald-400">{statusCounts.active}</div>
+            <div className="text-xs text-muted-foreground mt-1">Active</div>
+          </div>
+          <div className="rounded-xl border border-border bg-card/50 p-4">
+            <div className="text-2xl font-bold tabular-nums text-emerald-500">{statusCounts.completed}</div>
+            <div className="text-xs text-muted-foreground mt-1">Completed</div>
+          </div>
+          <div className="rounded-xl border border-border bg-card/50 p-4">
+            <div className="text-2xl font-bold tabular-nums text-destructive">{statusCounts.cancelled}</div>
+            <div className="text-xs text-muted-foreground mt-1">Cancelled</div>
+          </div>
         </div>
 
         {/* Filters — URL-driven, refresh-safe, shareable */}
@@ -137,32 +131,32 @@ export default async function TripsPage({
 
         {/* Trip List */}
         {filteredTrips.length === 0 ? (
-          <Card>
-            <CardContent className="pt-12 text-center">
-              <Mountain className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">No trips found</h3>
-              <p className="text-muted-foreground mb-6">
-                {trips.length === 0
-                  ? "Start planning your first outdoor adventure"
-                  : "Try adjusting your filters or search terms"}
-              </p>
-              {trips.length === 0 && (
-                <Button href="/trips/new">
+          <div className="rounded-xl border border-dashed border-border p-12 text-center">
+            <Mountain className="h-14 w-14 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-lg font-semibold mb-2">No trips found</h3>
+            <p className="text-muted-foreground mb-6">
+              {trips.length === 0
+                ? "Start planning your first outdoor adventure"
+                : "Try adjusting your filters or search terms"}
+            </p>
+            {trips.length === 0 && (
+              <Link href="/trips/new">
+                <Button>
                   <Plus className="h-4 w-4 mr-2" />
                   Create Your First Trip
                 </Button>
-              )}
-            </CardContent>
-          </Card>
+              </Link>
+            )}
+          </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {filteredTrips.map((trip) => (
-              <Card key={trip.id} className="hover:border-primary/50 transition-colors">
-                <CardHeader>
+              <Link key={trip.id} href={`/trips/${trip.id}`} className="block">
+                <div className="rounded-xl border border-border bg-card/50 p-5 hover:border-primary/30 hover:bg-card transition-all group">
                   <div className="flex items-start justify-between">
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 mb-2">
-                        <CardTitle className="text-xl">{trip.title}</CardTitle>
+                        <h3 className="font-semibold truncate group-hover:text-primary transition-colors">{trip.title}</h3>
                         <Badge variant={
                           trip.status === 'active' ? 'success' :
                           trip.status === 'planned' ? 'warning' :
@@ -171,37 +165,33 @@ export default async function TripsPage({
                           {trip.status}
                         </Badge>
                       </div>
-                      <CardDescription className="flex items-center gap-4">
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                         <span className="flex items-center gap-1">
-                          <MapPin className="h-4 w-4" />
+                          <MapPin className="h-3.5 w-3.5" />
                           {trip.activityType}
                         </span>
                         {trip.plannedDate && (
                           <span className="flex items-center gap-1">
-                            <Calendar className="h-4 w-4" />
+                            <Calendar className="h-3.5 w-3.5" />
                             {new Date(trip.plannedDate).toLocaleDateString()}
                           </span>
                         )}
                         {trip.estimatedDistance && (
                           <span className="flex items-center gap-1">
-                            <Mountain className="h-4 w-4" />
-                            {(trip.estimatedDistance / 1000).toFixed(1)} km
+                            <Route className="h-3.5 w-3.5" />
+                            {formatDistance(trip.estimatedDistance)}
                           </span>
                         )}
-                      </CardDescription>
+                      </div>
                     </div>
-                    <div className="flex gap-2">
-                      <Button 
-                        href={`/trips/${trip.id}`}
-                        variant="outline"
-                        size="sm"
-                      >
-                        View Details
-                      </Button>
+                    <div className="ml-4 shrink-0">
+                      <span className="inline-flex items-center gap-1 text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors">
+                        View
+                      </span>
                     </div>
                   </div>
-                </CardHeader>
-              </Card>
+                </div>
+              </Link>
             ))}
           </div>
         )}
