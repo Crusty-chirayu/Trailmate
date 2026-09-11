@@ -4,26 +4,54 @@
 
 @layer base {
   :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 142.1 76.2% 36.3%;
-    --primary-foreground: 355.7 100% 97.3%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 142.1 76.2% 36.3%;
-    --radius: 0.5rem;
+    /* TrailMate Design System — Outdoor Premium Palette */
+    --background: 220 18% 7%;
+    --foreground: 210 20% 96%;
+
+    --card: 220 16% 9%;
+    --card-foreground: 210 20% 95%;
+
+    --popover: 220 18% 8%;
+    --popover-foreground: 210 20% 96%;
+
+    /* Primary — Deep Forest Green */
+    --primary: 145 45% 42%;
+    --primary-foreground: 140 60% 98%;
+
+    /* Secondary — Warm Stone */
+    --secondary: 220 12% 15%;
+    --secondary-foreground: 210 20% 92%;
+
+    --muted: 220 12% 13%;
+    --muted-foreground: 215 12% 60%;
+
+    --accent: 220 12% 15%;
+    --accent-foreground: 210 20% 92%;
+
+    /* Destructive — Muted Earth Red */
+    --destructive: 0 55% 45%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 12% 16%;
+    --input: 220 12% 16%;
+    --ring: 145 45% 42%;
+
+    --radius: 0.625rem;
+
+    /* Chart colors */
+    --chart-1: 145 45% 42%;
+    --chart-2: 35 65% 55%;
+    --chart-3: 200 50% 45%;
+    --chart-4: 270 45% 55%;
+    --chart-5: 180 40% 50%;
+
+    /* Chart semantic colors for elevation/profile charts */
+    --chart-area: rgba(34, 197, 94, 0.12);
+    --chart-line: #22c55e;
+    --chart-low: #94a3b8;
+    --chart-high: #22c55e;
+    --chart-start: #22c55e;
+    --chart-end: #f59e0b;
   }
 }
 
@@ -31,7 +59,123 @@
   * {
     @apply border-border;
   }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  /* Focus visible styles */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
+
+@layer components {
+  /* Skip to content link */
+  .skip-link {
+    @apply absolute -top-10 left-4 z-[100] bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium transition-all;
+  }
+
+  .skip-link:focus {
+    @apply top-4;
+  }
+
+  /* Premium button styles */
+  .btn-premium {
+    @apply inline-flex items-center justify-center rounded-lg text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-hero {
+    @apply btn-premium px-8 py-4 text-base font-semibold rounded-full;
+  }
+
+  /* Section container */
+  .section-container {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Glass card */
+  .glass-card {
+    @apply rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-emerald-400 via-emerald-300 to-teal-400 bg-clip-text text-transparent;
+  }
+
+  /* Subtle glow */
+  .glow-sm {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
+  }
+
+  .glow-md {
+    box-shadow: 0 0 40px rgba(34, 197, 94, 0.2);
+  }
+}
+
+@layer utilities {
+  /* Fade in animation */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.4s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+  }
+
+  /* Stagger delays */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
