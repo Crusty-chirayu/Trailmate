@@ -4,6 +4,8 @@ import { validateTripInput } from '@/lib/domain/trips/validation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { Select } from '@/components/ui/Select'
+import { Textarea } from '@/components/ui/Textarea'
 import { ArrowLeft, MapPin } from 'lucide-react'
 import type { ActivityType } from '@/types/domain'
 
@@ -106,10 +108,9 @@ export default function NewTripPage() {
                 <label htmlFor="activityType" className="text-sm font-medium">
                   Activity Type *
                 </label>
-                <select
+                <Select
                   id="activityType"
                   name="activityType"
-                  className="w-full px-4 py-2 rounded-md border border-input bg-background text-sm"
                   required
                   aria-describedby="activityType-help"
                 >
@@ -118,7 +119,7 @@ export default function NewTripPage() {
                   <option value="cycling">Cycling</option>
                   <option value="camping">Camping</option>
                   <option value="other">Other</option>
-                </select>
+                </Select>
                 <p id="activityType-help" className="text-xs text-muted-foreground">
                   Choose from the supported activity types.
                 </p>
@@ -129,11 +130,10 @@ export default function NewTripPage() {
                 <label htmlFor="description" className="text-sm font-medium">
                   Description
                 </label>
-                <textarea
+                <Textarea
                   id="description"
                   name="description"
                   placeholder="Describe your adventure..."
-                  className="w-full px-4 py-2 rounded-md border border-input bg-background text-sm min-h-[100px]"
                 />
               </div>
 

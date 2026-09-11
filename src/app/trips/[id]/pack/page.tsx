@@ -6,6 +6,7 @@ import { PackingChecklist } from '@/components/gear/PackingChecklist'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Input } from '@/components/ui/Input'
+import { Select } from '@/components/ui/Select'
 import { ArrowLeft } from 'lucide-react'
 import { GEAR_CATEGORY_ORDER } from '@/types/domain'
 import {
@@ -97,10 +98,10 @@ function AssignTemplate({
       </CardHeader>
       <CardContent>
         <form action={assign} className="flex flex-col sm:flex-row gap-3">
-          <select
+          <Select
             name="templateId"
             aria-label="Gear template"
-            className="flex h-10 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="flex-1"
             defaultValue=""
           >
             <option value="" disabled>
@@ -109,7 +110,7 @@ function AssignTemplate({
             {templates.map(t => (
               <option key={t.id} value={t.id}>{t.name}</option>
             ))}
-          </select>
+          </Select>
           <Button type="submit" variant="outline">Assign to trip</Button>
         </form>
         <p className="mt-2 text-xs text-muted-foreground">
@@ -147,17 +148,16 @@ function AddAdHocItem({ tripId }: { tripId: string }) {
         <form action={add} className="space-y-3">
           <div className="flex flex-col sm:flex-row gap-3">
             <Input name="itemName" placeholder="Item name" aria-label="Item name" maxLength={100} required className="flex-1" />
-            <select
+            <Select
               name="category"
               aria-label="Category"
-              className="flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               defaultValue=""
             >
               <option value="">No category</option>
               {GEAR_CATEGORY_ORDER.map(c => (
                 <option key={c.value} value={c.value}>{c.label}</option>
               ))}
-            </select>
+            </Select>
           </div>
           <div className="flex items-center gap-4 flex-wrap">
             <Input name="quantity" type="number" min={1} max={999} placeholder="Qty" aria-label="Quantity" className="w-24" />

@@ -3,6 +3,7 @@ import { GearService } from '@/lib/domain/gear/service'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { Select } from '@/components/ui/Select'
 import { Badge } from '@/components/ui/Badge'
 import ConfirmActionButton from '@/components/ui/ConfirmActionButton'
 import { ArrowLeft, Plus } from 'lucide-react'
@@ -118,17 +119,16 @@ function AddItemForm({ templateId }: { templateId: string }) {
         <form action={addItem} className="space-y-3">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <Input name="itemName" placeholder="Item name" required aria-label="Item name" maxLength={100} className="col-span-2" />
-            <select
+            <Select
               name="category"
               aria-label="Category"
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               defaultValue=""
             >
               <option value="">No category</option>
               {GEAR_CATEGORY_ORDER.map(c => (
                 <option key={c.value} value={c.value}>{c.label}</option>
               ))}
-            </select>
+            </Select>
             <Input name="quantity" type="number" min={1} max={999} placeholder="Qty" aria-label="Quantity" defaultValue={1} />
             <Input name="weight" type="number" min={0} step="1" placeholder="Weight (g)" aria-label="Weight in grams per unit" />
             <label className="flex items-center gap-2 text-sm col-span-2 self-center">

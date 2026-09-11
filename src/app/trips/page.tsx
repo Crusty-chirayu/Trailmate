@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { Select } from '@/components/ui/Select'
 import { Mountain, MapPin, Calendar, Plus, Route, Clock } from 'lucide-react'
 import { formatDistance } from '@/lib/tracking/format'
 import Link from 'next/link'
@@ -93,10 +94,10 @@ export default async function TripsPage({
               </div>
               <div className="flex gap-2">
                 <label htmlFor="status" className="sr-only">Filter by status</label>
-                <select
+                <Select
                   id="status"
                   name="status"
-                  className="px-4 py-2 rounded-md border border-input bg-background text-sm"
+                  className="w-full sm:w-40"
                   defaultValue={status ?? ''}
                   aria-label="Filter by status"
                 >
@@ -105,12 +106,12 @@ export default async function TripsPage({
                   <option value="active">Active</option>
                   <option value="completed">Completed</option>
                   <option value="cancelled">Cancelled</option>
-                </select>
+                </Select>
                 <label htmlFor="activity" className="sr-only">Filter by activity</label>
-                <select
+                <Select
                   id="activity"
                   name="activity"
-                  className="px-4 py-2 rounded-md border border-input bg-background text-sm"
+                  className="w-full sm:w-40"
                   defaultValue={activity ?? ''}
                   aria-label="Filter by activity"
                 >
@@ -119,7 +120,7 @@ export default async function TripsPage({
                   <option value="cycling">Cycling</option>
                   <option value="camping">Camping</option>
                   <option value="other">Other</option>
-                </select>
+                </Select>
                 <Button type="submit" variant="outline" size="sm" aria-label="Apply filters">Filter</Button>
                 {(search || status || activity) && (
                   <Button href="/trips" variant="ghost" size="sm" aria-label="Clear filters">Clear</Button>

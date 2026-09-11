@@ -4,6 +4,8 @@ import { validateTripInput } from '@/lib/domain/trips/validation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { Select } from '@/components/ui/Select'
+import { Textarea } from '@/components/ui/Textarea'
 import { ArrowLeft } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
@@ -139,11 +141,10 @@ export default async function TripEditPage({ params }: { params: Promise<{ id: s
                 <label htmlFor="activityType" className="text-sm font-medium">
                   Activity type *
                 </label>
-                <select
+                <Select
                   id="activityType"
                   name="activityType"
                   defaultValue={trip.activityType}
-                  className="w-full px-4 py-2 rounded-md border border-input bg-background text-sm"
                   required
                   aria-label="Activity type"
                 >
@@ -151,19 +152,18 @@ export default async function TripEditPage({ params }: { params: Promise<{ id: s
                   <option value="cycling">Cycling</option>
                   <option value="camping">Camping</option>
                   <option value="other">Other</option>
-                </select>
+                </Select>
               </div>
 
               <div className="space-y-2">
                 <label htmlFor="description" className="text-sm font-medium">
                   Description
                 </label>
-                <textarea
+                <Textarea
                   id="description"
                   name="description"
                   defaultValue={trip.description ?? ''}
                   placeholder="Describe your adventure..."
-                  className="w-full px-4 py-2 rounded-md border border-input bg-background text-sm min-h-[100px]"
                   aria-label="Trip description"
                   maxLength={5000}
                 />
@@ -229,11 +229,10 @@ export default async function TripEditPage({ params }: { params: Promise<{ id: s
                   <label htmlFor="difficulty" className="text-sm font-medium">
                     Difficulty
                   </label>
-                  <select
+                  <Select
                     id="difficulty"
                     name="difficulty"
                     defaultValue={trip.difficulty ?? ''}
-                    className="w-full px-4 py-2 rounded-md border border-input bg-background text-sm"
                     aria-label="Difficulty"
                   >
                     <option value="">Not set</option>
@@ -241,7 +240,7 @@ export default async function TripEditPage({ params }: { params: Promise<{ id: s
                     <option value="moderate">Moderate</option>
                     <option value="hard">Hard</option>
                     <option value="expert">Expert</option>
-                  </select>
+                  </Select>
                 </div>
               </div>
 
@@ -249,17 +248,16 @@ export default async function TripEditPage({ params }: { params: Promise<{ id: s
                 <label htmlFor="visibility" className="text-sm font-medium">
                   Visibility
                 </label>
-                <select
+                <Select
                   id="visibility"
                   name="visibility"
                   defaultValue={trip.visibility}
-                  className="w-full px-4 py-2 rounded-md border border-input bg-background text-sm"
                   aria-label="Visibility"
                 >
                   <option value="private">Private</option>
                   <option value="shared">Shared</option>
                   <option value="public">Public</option>
-                </select>
+                </Select>
               </div>
 
               <div className="flex gap-4 pt-4">
