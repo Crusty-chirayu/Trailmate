@@ -121,16 +121,16 @@ export default async function TripDetailPage({
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header */}
         <div className="mb-8">
           <Button href="/trips" variant="ghost" className="mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Trips
           </Button>
-          <div className="flex items-start justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
             <div className="flex-1">
-              <h1 className="text-3xl font-bold mb-2">{trip.title}</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">{trip.title}</h1>
               <div className="flex items-center gap-3">
                 <Badge variant={statusColors[trip.status]}>
                   {trip.status}
