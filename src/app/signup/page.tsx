@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
+import { Mountain, ArrowRight } from 'lucide-react'
 
 export default function SignupPage() {
   const [email, setEmail] = useState('')
@@ -35,71 +36,45 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="w-full max-w-md p-8 space-y-6 bg-card rounded-lg border border-border">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-foreground">Create Account</h1>
-          <p className="mt-2 text-muted-foreground">Join TrailMate</p>
-        </div>
-
-        {error && (
-          <div className="p-4 text-sm text-destructive bg-destructive/10 rounded-md border border-destructive/20">
-            {error}
-          </div>
-        )}
-
-        {message && (
-          <div className="p-4 text-sm text-primary bg-primary/10 rounded-md border border-primary/20">
-            {message}
-          </div>
-        )}
-
-        <form onSubmit={handleSignup} className="space-y-4">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full px-4 py-2 bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
-              placeholder="you@example.com"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-foreground mb-2">
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={6}
-              className="w-full px-4 py-2 bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
-              placeholder="••••••••"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-2 px-4 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {loading ? 'Creating account...' : 'Sign Up'}
-          </button>
-        </form>
-
-        <div className="text-center text-sm text-muted-foreground">
-          Already have an account?{' '}
-          <Link href="/login" className="text-primary hover:underline">
-            Sign in
+    <div className="min-h-screen flex">
+      <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-emerald-900/30 via-background to-background items-center justify-center p-12">
+        <div className="max-w-md space-y-8">
+          <Link href="/" className="flex items-center gap-3 group">
+            <Mountain className="h-10 w-10 text-primary transition-transform group-hover:scale-110" />
+            <span className="text-3xl font-bold tracking-tight">TrailMate</span>
           </Link>
+          <div className="space-y-4">
+            <h2 className="text-2xl font-semibold leading-relaxed">Start your<br /><span className="text-emerald-400">adventure today.</span></h2>
+            <p className="text-muted-foreground leading-relaxed">Plan trips, track GPS routes, manage gear, and analyze your outdoor progress.</p>
+          </div>
+          <div className="flex items-center gap-3 text-sm text-muted-foreground">
+            <div className="h-px flex-1 bg-border" /><span>Free & open source</span><div className="h-px flex-1 bg-border" />
+          </div>
+        </div>
+      </div>
+      <div className="flex-1 flex items-center justify-center p-6 sm:p-12">
+        <div className="w-full max-w-md space-y-8">
+          <Link href="/" className="lg:hidden flex items-center gap-2 group"><Mountain className="h-7 w-7 text-primary" /><span className="text-xl font-bold tracking-tight">TrailMate</span></Link>
+          <div className="space-y-2">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Create your account</h1>
+            <p className="text-muted-foreground">Start planning your outdoor adventures</p>
+          </div>
+          {error && <div className="p-4 text-sm text-destructive bg-destructive/10 rounded-lg border border-destructive/20" role="alert">{error}</div>}
+          {message && <div className="p-4 text-sm text-emerald-500 bg-emerald-500/10 rounded-lg border border-emerald-500/20" role="status">{message}</div>}
+          <form onSubmit={handleSignup} className="space-y-5">
+            <div className="space-y-2">
+              <label htmlFor="email" className="block text-sm font-medium">Email</label>
+              <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" className="flex h-11 w-full rounded-lg border border-input bg-background px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="you@example.com" />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="password" className="block text-sm font-medium">Password</label>
+              <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} autoComplete="new-password" className="flex h-11 w-full rounded-lg border border-input bg-background px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="••••••••" />
+            </div>
+            <button type="submit" disabled={loading} className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none h-11">
+              {loading ? 'Creating account...' : 'Create Account'}{!loading && <ArrowRight className="ml-2 h-4 w-4" />}
+            </button>
+          </form>
+          <p className="text-center text-sm text-muted-foreground">Already have an account?{' '}<Link href="/login" className="font-medium text-primary hover:underline">Sign in</Link></p>
         </div>
       </div>
     </div>
