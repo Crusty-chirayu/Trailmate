@@ -114,7 +114,7 @@ export default function LandingPage() {
               <p className='text-muted-foreground text-lg max-w-2xl mx-auto'>From planning to tracking to remembering.</p>
             </div>
             <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
-              {SECTIONS.map(({ id, title, description, icon: Icon }, index) => (
+              {SECTIONS.map(({ id, title, description, icon: Icon }) => (
                 <div key={id} id={id} className={cn('group rounded-xl border border-border bg-card/50 p-8 transition-all duration-300 hover:border-primary/30 hover:bg-card hover:glow-sm animate-fade-in-up')}>
                   <div className='h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors'><Icon className='h-6 w-6 text-primary' /></div>
                   <h3 className='text-lg font-semibold mb-3'>{title}</h3>
