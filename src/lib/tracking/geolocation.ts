@@ -34,6 +34,9 @@ const DEFAULT_OPTIONS: GeolocationOptions = {
 const PERMISSION_DENIED = 1
 const POSITION_UNAVAILABLE = 2
 const TIMEOUT = 3
+function isTruthy(b: boolean | null | undefined): b is true {
+  return b === true
+}
 
 export class GeolocationEngine {
   private watchId: number | null = null
