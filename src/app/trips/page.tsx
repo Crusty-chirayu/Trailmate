@@ -1,10 +1,10 @@
 import { TripService } from '@/lib/domain/trips/service'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
+import { Card, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Select } from '@/components/ui/Select'
-import { Mountain, MapPin, Calendar, Plus, Route, Clock } from 'lucide-react'
+import { Mountain, MapPin, Calendar, Plus, Route } from 'lucide-react'
 import { formatDistance } from '@/lib/tracking/format'
 import Link from 'next/link'
 

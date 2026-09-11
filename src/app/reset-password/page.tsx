@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { createClient, mapAuthError, isSupabaseConfigured } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Mountain, ArrowRight, Mail } from 'lucide-react'
 import { Input } from '@/components/ui/Input'
@@ -13,7 +12,6 @@ export default function ResetPasswordPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [message, setMessage] = useState<string | null>(null)
-  const router = useRouter()
   const supabase = createClient()
   const configured = isSupabaseConfigured()
 
