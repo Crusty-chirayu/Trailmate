@@ -2,9 +2,11 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 import type { Database } from '@/types/database'
 
-/** Public auth endpoints remain reachable; all user-data routes fail closed. */
+/** Public auth endpoints and the marketing landing page remain reachable;
+ * all user-data routes fail closed. The landing page (/ ) handles the
+ * authenticated-user redirect itself, so it must stay public. */
 export function isProtectedPath(pathname: string): boolean {
-  return pathname === '/' || pathname === '/trips' || pathname.startsWith('/trips/')
+  return pathname === '/dashboard' || pathname === '/trips' || pathname.startsWith('/trips/')
     || pathname === '/gear' || pathname.startsWith('/gear/')
 }
 

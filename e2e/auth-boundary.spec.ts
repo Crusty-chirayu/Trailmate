@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test'
 
 // The core unauthenticated contract of TrailMate:
-//  - Public auth pages must render their forms and stay reachable.
+//  - Public pages (landing, marketing hero and auth forms) must render and stay
+//    reachable without a session.
 //  - Every protected route must fail closed and redirect to /login when the
 //    request is not authenticated (no Supabase session).
 
@@ -50,7 +51,7 @@ test.describe('public auth pages', () => {
 
 test.describe('protected routes fail closed', () => {
   const protectedRoutes = [
-    '/',
+    '/dashboard',
     '/trips',
     '/trips/new',
     '/gear',
@@ -70,4 +71,30 @@ test.describe('protected routes fail closed', () => {
       ).toBeVisible()
     })
   }
+})
+
+test.describe('landing page is public to anonymous visitors', () => {
+  test('hero and marketing content render without a session', async ({
+    page,
+  }) => {
+    await page.goto('/')
+
+    await expect(
+      page.getByRole('heading', { level: 1, name: 'Plan the journey.' }),
+    ).toBeVisible()
+    // Primary conversion CTA targets signup.
+    await expect(
+      page.getByRole('link', { name: 'Start Exploring' }).first(),
+    ).toHaveAttribute('href', '/signup')
+    // Anonymous navigation exposes sign-in, never the authenticated dashboard.
+    await expect(page.getByRole('link', { name: 'Sign in' }).first()).toHaveAttribute('href', '/login')
+    await expect(page.getByRole('link', { name: 'Dashboard' })).toHaveCount(0)
+  })
+
+  test('provides a skip-to-content link for keyboard users', async ({ page }) => {
+    await page.goto('/')
+    const skip = page.getByRole('link', { name: 'Skip to content' }).first()
+    await expect(skip).toBeVisible()
+    await expect(skip).toHaveAttribute('href', '#main-content')
+  })
 })

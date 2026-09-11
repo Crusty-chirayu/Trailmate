@@ -3,7 +3,7 @@ import { isProtectedPath } from './proxy'
 
 describe('protected route boundary', () => {
   it.each([
-    '/',
+    '/dashboard',
     '/trips',
     '/trips/new',
     '/trips/trip-1',
@@ -14,9 +14,13 @@ describe('protected route boundary', () => {
   })
 
   it.each([
+    '/',
     '/login',
     '/signup',
     '/auth/callback',
+    '/reset-password',
+    '/share/some-token',
+    '/trails/trail-1',
   ])('keeps %s public', path => {
     expect(isProtectedPath(path)).toBe(false)
   })

@@ -8,7 +8,7 @@ import { test, expect } from '@playwright/test'
 test('applies security headers and hides X-Powered-By on public pages', async ({
   request,
 }) => {
-  const response = await request.get('/login')
+  const response = await request.get('/')
   expect(response.status()).toBe(200)
 
   const headers = response.headers()
@@ -24,7 +24,7 @@ test('applies security headers and hides X-Powered-By on public pages', async ({
 test('fail-closed redirect stays protected and does not leak framework', async ({
   request,
 }) => {
-  const response = await request.get('/', { maxRedirects: 0 })
+  const response = await request.get('/trips', { maxRedirects: 0 })
   expect(response.status()).toBe(307)
 
   const headers = response.headers()
