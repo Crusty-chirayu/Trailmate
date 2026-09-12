@@ -13,7 +13,7 @@ import ElevationProfileChart from '@/components/tracking/ElevationProfileChart'
 import GpxExportButton from '@/components/tracking/GpxExportButton'
 import { computeRouteStats, type RouteHistoryPoint } from '@/lib/domain/tracking/routeStats'
 import { buildElevationProfile } from '@/lib/domain/tracking/elevation'
-import { formatDistance, formatElevation, formatTime } from '@/lib/tracking/format'
+import { formatDistance, formatElevation, formatSpeed, formatTime } from '@/lib/tracking/format'
 
 export interface SharedTrailProfile {
   id: string
@@ -131,7 +131,7 @@ export default function TrailView({ profile, route, backHref, backLabel, channel
               <div className="bg-card px-4 py-3">
                 <dt className="text-xs uppercase tracking-widest text-muted-foreground">Avg speed</dt>
                 <dd className="text-lg font-semibold tabular-nums">
-                  {stats.averageSpeed !== null ? formatDistance(stats.averageSpeed * 3600) + '/h' : '—'}
+                  {stats.averageSpeed !== null ? formatSpeed(stats.averageSpeed) : '—'}
                 </dd>
               </div>
               <div className="bg-card px-4 py-3">

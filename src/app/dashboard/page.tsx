@@ -96,7 +96,7 @@ export default async function DashboardPage({
           <p className="text-sm text-muted-foreground mb-1">Welcome back</p>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">Expedition Log</h1>
           <p className="text-muted-foreground mt-2 max-w-xl">
-            Distance, time and elevation � measured only from your recorded routes, never estimated.
+            Distance, time and elevation — measured only from your recorded routes, never estimated.
           </p>
         </header>
 
@@ -144,7 +144,7 @@ export default async function DashboardPage({
               />
               <StatCard
                 label="Elevation"
-                value={analytics.hasElevation ? `+${formatElevation(analytics.totalElevationGain)}` : '�'}
+                value={analytics.hasElevation ? `+${formatElevation(analytics.totalElevationGain)}` : '—'}
                 detail={analytics.hasElevation
                   ? `${formatElevation(analytics.totalElevationLoss)} descent`
                   : 'no altitude data'}
@@ -155,10 +155,10 @@ export default async function DashboardPage({
               <p className="mb-8 text-sm text-muted-foreground leading-relaxed">
                 <StatusLine analytics={analytics} />
                 {analytics.tripsWithRoute > 0 && analytics.averageTripDistance !== null && (
-                  <> � average trip {formatDistance(analytics.averageTripDistance)}</>
+                  <> · average trip {formatDistance(analytics.averageTripDistance)}</>
                 )}
                 {allTime.longestTrip && (
-                  <> � longest: <Link href={`/trips/${allTime.longestTrip.tripId}`} className="text-foreground font-medium underline underline-offset-4 hover:text-primary">{allTime.longestTrip.title}</Link> {formatDistance(allTime.longestTrip.distance)}</>
+                  <> · longest: <Link href={`/trips/${allTime.longestTrip.tripId}`} className="text-foreground font-medium underline underline-offset-4 hover:text-primary">{allTime.longestTrip.title}</Link> {formatDistance(allTime.longestTrip.distance)}</>
                 )}
               </p>
             )}
@@ -166,14 +166,14 @@ export default async function DashboardPage({
             {activitySummaries.length > 0 && (
               <section className="mb-8">
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
-                  By activity � {windowLabel}
+                  By activity · {windowLabel}
                 </h2>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
                   {activitySummaries.map((s) => (
                     <div key={s.activityType} className="rounded-xl border border-border bg-card/50 p-4">
                       <div className="text-sm font-medium mb-1">{s.activityType}</div>
                       <div className="text-lg font-bold">{formatDistance(s.totalDistance)}</div>
-                      <div className="text-xs text-muted-foreground">{s.tripCount} trips � {s.tripsWithRoute} with route</div>
+                      <div className="text-xs text-muted-foreground">{s.tripCount} trips · {s.tripsWithRoute} with route</div>
                     </div>
                   ))}
                 </div>
@@ -183,7 +183,7 @@ export default async function DashboardPage({
             {allTime.longestTrip && (
               <section className="mb-8">
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
-                  Personal records � all time
+                  Personal records · all time
                 </h2>
                 <div className="grid sm:grid-cols-2 gap-3">
                   <Link href={`/trips/${allTime.longestTrip.tripId}`} className="rounded-xl border border-border bg-card/50 p-4 hover:bg-accent/50 transition-colors">
@@ -355,7 +355,7 @@ function StatusLine({ analytics }: { analytics: TripAnalytics }) {
   if (analytics.plannedTrips > 0) parts.push(`${analytics.plannedTrips} planned`)
   if (analytics.cancelledTrips > 0) parts.push(`${analytics.cancelledTrips} cancelled`)
   if (parts.length === 0) return null
-  return <>{parts.join(' � ')}</>
+  return <>{parts.join(' · ')}</>
 }
 
 function EmptyExpeditionLog() {
@@ -367,7 +367,7 @@ function EmptyExpeditionLog() {
           No expeditions logged yet
         </h2>
         <p className="text-muted-foreground max-w-md mx-auto mb-6">
-          Plan a trip and record a GPS route � your distance, moving time and
+          Plan a trip and record a GPS route — your distance, moving time and
           elevation will appear here, measured from real recorded data.
         </p>
         <div className="flex flex-wrap justify-center gap-3">

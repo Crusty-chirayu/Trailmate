@@ -54,9 +54,13 @@ test.describe('protected routes fail closed', () => {
     '/dashboard',
     '/trips',
     '/trips/new',
+    '/trips/example-trip-id',
+    '/trips/example-trip-id/track',
+    '/trips/example-trip-id/route',
+    '/trips/example-trip-id/pack',
     '/gear',
     '/gear/example-template-id',
-    '/trips/example-trip-id',
+    '/share/example-share-token',
   ] as const
 
   for (const route of protectedRoutes) {
