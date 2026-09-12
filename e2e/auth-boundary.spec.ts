@@ -55,7 +55,7 @@ test.describe('protected routes fail closed', () => {
     '/trips',
     '/trips/new',
     '/gear',
-    '/gear/gear-list',
+    '/gear/example-template-id',
     '/trips/example-trip-id',
   ] as const
 

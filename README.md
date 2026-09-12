@@ -31,12 +31,13 @@ trail pages, and an installable offline app shell.
 - Gear templates and snapshot-based trip packing checklists
 - Server-rendered expedition analytics, activity summaries, trends, and records
 - Installable PWA shell with offline fallback
+- End-to-end auth-boundary, public-surface, and security-header coverage
+- GitHub Actions CI pipeline (quality, E2E, database, security)
 
 ### Not currently implemented
 
 - Background GPS recording after the browser closes the page
 - Offline map tiles or offline gear/trip mutations
-- End-to-end tests and CI pipeline
 - Accessibility and performance audit
 - Production deployment verification
 
@@ -175,7 +176,10 @@ constraints, assignment uniqueness, and `source_id` type alignment.
 
 `security:scan` scans tracked files without printing matched credential values.
 It also warns when environment files exist in historical commits so rotation is
-not forgotten.
+not forgotten. Continuous validation runs in GitHub Actions (`.github/workflows/ci.yml`):
+`quality` (lint, typecheck, build, unit tests), `e2e` (Playwright auth-boundary,
+public-surface, and security-headers specs), `database-artifacts` (`db:validate`),
+and `security` (`security:scan` plus a production dependency audit).
 
 ## Architecture
 
@@ -195,7 +199,8 @@ network failure does not block recording.
 
 ## Roadmap
 
-Foundation work takes priority over new surface area. Planned later phases
-include core trip-flow reliability, account-isolated offline storage, robust
+Foundation work takes priority over new surface area. Later phases include
+core trip-flow reliability, account-isolated offline storage, robust
 sync retry behavior, validated route import, trip sharing, PWA support,
-end-to-end testing, CI, accessibility review, and production deployment.
+accessibility review, and production deployment verification — E2E coverage
+and CI already guard the current surface.
