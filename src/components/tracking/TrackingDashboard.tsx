@@ -41,6 +41,8 @@ export default function TrackingDashboard({ tripId, tripTitle, userId }: Trackin
     canFinish,
     isRecording,
     isPaused,
+    wakeLockSupported,
+    wakeLockActive,
   } = useTracking(tripId, { userId, tripTitle })
 
   // A timestamp captured inside the interval effect (never during render) so
@@ -99,6 +101,11 @@ export default function TrackingDashboard({ tripId, tripTitle, userId }: Trackin
                 pointCount={points.length}
                 className="mt-2"
               />
+              {isRecording && wakeLockSupported && (
+                <span className="ml-2 text-xs text-muted-foreground" aria-label={wakeLockActive ? 'Screen awake — recording' : 'Wake lock unavailable'}>
+                  {wakeLockActive ? '● Screen awake' : '○ Screen awake unavailable'}
+                </span>
+              )}
             </div>
           </div>
         </div>

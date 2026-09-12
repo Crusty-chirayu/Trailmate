@@ -19,6 +19,7 @@ import { TrackingSync } from '@/lib/tracking/sync'
 import { IndexedDbAdapter } from '@/lib/tracking/storage'
 import { createSupabaseSyncUploader } from '@/lib/tracking/supabaseSync'
 import { finishTripAction } from '@/app/trips/[id]/track/actions'
+import { useScreenWakeLock } from './useScreenWakeLock'
 
 /** Cap on points held in React state for rendering; storage keeps everything. */
 const MAX_LIVE_POINTS = 1500
@@ -468,6 +469,12 @@ export function useTracking(tripId: string, options?: UseTrackingOptions) {
 
   const stats: TrackingStatistics = session?.statistics ?? emptyStatistics()
   const status = session?.status ?? 'idle'
+  const isRecording = status === 'tracking' || status === 'acquiring'
+
+  // Screen Wake Lock prevents the OS from sleeping the screen mid-recording on
+  // supported browsers. It cannot keep GPS alive once the tab is backgrounded
+  // or closed — that is a hard browser limitation, not something we can fix.
+  const wakeLock = useScreenWakeLock(isRecording)
 
   return {
     session,
@@ -485,7 +492,7 @@ export function useTracking(tripId: string, options?: UseTrackingOptions) {
     retryCompletion,
     serverCompletion,
     importRoutePoints,
-    isRecording: status === 'tracking' || status === 'acquiring',
+    isRecording,
     isPaused: status === 'paused',
     isIdle: status === 'idle' || status === 'completed',
     canStart: status === 'idle' || status === 'completed',
@@ -493,5 +500,7 @@ export function useTracking(tripId: string, options?: UseTrackingOptions) {
     canPause: status === 'tracking',
     canResume: status === 'paused',
     canFinish: status === 'acquiring' || status === 'tracking' || status === 'paused',
+    wakeLockSupported: wakeLock.supported,
+    wakeLockActive: wakeLock.active,
   }
 }
