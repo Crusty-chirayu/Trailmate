@@ -158,6 +158,45 @@ Protected trip, gear, and dashboard routes are enforced in `src/proxy.ts`.
 Unauthenticated requests redirect to `/login`; `/login`, `/signup`, and the auth
 callback remain public.
 
+## Deployment and live verification
+
+The deployment host needs exactly two environment variables — the same public
+browser values used locally. Never set a service-role key in the host
+environment, and never place a server secret in a `NEXT_PUBLIC_*` variable:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-or-publishable-key
+```
+
+In the Supabase dashboard the auth URL configuration must match the deployed
+origin:
+
+1. **Site URL** — the deployed application origin (for example `https://trailmate.example.com`).
+2. **Redirect URLs** — must include `<origin>/auth/callback`, because signup
+   confirmation and password recovery both land on that route for session
+   exchange.
+
+After deploying, verify the deployment end to end:
+
+```bash
+npm run verify:live
+```
+
+The probe checks that the project is reachable (`/auth/v1/health`), that the
+auth gateway rejects wrong credentials with the expected `400` while creating
+no data (proving the full anonymous-key path), and that the PostgREST gateway
+accepts the key. It prints status codes only — never credential values. The
+same probe runs as a CI job when the two values are configured as repository
+secrets; without them the job reports an explicit skip.
+
+Full account-level behavior (real signup, login, logout, session refresh, and
+recovery emails) is exercised by the application flows and covered by the E2E
+auth-boundary suite against the production build; the hosted SQL checks in
+`supabase/verification/` remain the authoritative proof of database state and
+must be run by a project operator in the Supabase SQL editor.
+
+
 ## Quality commands
 
 ```bash

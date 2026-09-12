@@ -13,7 +13,8 @@
     "security:scan": "node scripts/security/scan-secrets.mjs",
     "e2e": "playwright test",
     "e2e:ui": "playwright test --ui",
-    "e2e:serve": "node scripts/e2e/serve.mjs"
+    "e2e:serve": "node scripts/e2e/serve.mjs",
+    "verify:live": "node scripts/verify-live.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.4",
