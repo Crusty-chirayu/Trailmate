@@ -14,7 +14,7 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
   return (
     <main className="min-h-screen bg-background text-foreground flex items-center justify-center px-4">
       <div className="text-center py-20">
-        <AlertTriangle className="h-16 w-16 text-destructive mx-auto mb-6" aria-hidden="true" />
+        <AlertTriangle className="h-16 w-16 text-destructive-text mx-auto mb-6" aria-hidden="true" />
         <p className="text-sm uppercase tracking-widest text-muted-foreground mb-2">Something went wrong</p>
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3">Unexpected error</h1>
         <p className="text-muted-foreground max-w-md mx-auto mb-8">

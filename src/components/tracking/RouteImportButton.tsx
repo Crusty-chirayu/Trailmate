@@ -101,7 +101,7 @@ export default function RouteImportButton({ tripId, onQueued }: RouteImportButto
         </p>
       )}
       {error && (
-        <p className="mt-2 text-xs text-destructive" role="alert">
+        <p className="mt-2 text-xs text-destructive-text" role="alert">
           <AlertTriangle className="mr-1 inline h-3.5 w-3.5" aria-hidden />
           {error}
         </p>

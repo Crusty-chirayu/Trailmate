@@ -62,7 +62,7 @@ export default function GpxExportButton({ points, tripTitle, formats = ['gpx'] }
         ))}
       </div>
       {error && (
-        <p className="mt-2 text-xs text-destructive" role="alert">
+        <p className="mt-2 text-xs text-destructive-text" role="alert">
           {error}
         </p>
       )}

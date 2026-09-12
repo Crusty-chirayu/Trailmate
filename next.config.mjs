@@ -14,7 +14,7 @@ const contentSecurityPolicy = [
   "font-src 'self' data:",
   "img-src 'self' data: blob: https://*.tile.openstreetmap.org",
   `connect-src 'self' https://*.supabase.co wss://*.supabase.co${isDevelopment ? ' ws:' : ''}`,
-  "media-src 'self' blob:",
+  "media-src 'self' blob: https://cdn.sceneai.art",
   "worker-src 'self' blob:",
   "manifest-src 'self'",
   ...(isDevelopment ? [] : ['upgrade-insecure-requests']),

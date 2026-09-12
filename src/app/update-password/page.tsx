@@ -54,7 +54,7 @@ export default function UpdatePasswordPage() {
   }
 
   return (
-    <div className="min-h-screen flex">
+    <main className="min-h-screen flex">
       <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-emerald-900/30 via-background to-background items-center justify-center p-12">
         <div className="max-w-md space-y-8">
           <Link href="/" className="flex items-center gap-3 group">
@@ -100,7 +100,7 @@ export default function UpdatePasswordPage() {
           )}
 
           {error && (
-            <div className="p-4 text-sm text-destructive bg-destructive/10 rounded-xl border border-destructive/20" role="alert">
+            <div className="p-4 text-sm text-destructive-text bg-destructive/10 rounded-xl border border-destructive/20" role="alert">
               {error}
             </div>
           )}
@@ -160,6 +160,6 @@ export default function UpdatePasswordPage() {
           </Link>
         </div>
       </div>
-    </div>
+    </main>
   )
 }

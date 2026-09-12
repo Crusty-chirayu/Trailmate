@@ -45,7 +45,7 @@ function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen flex">
+    <main className="min-h-screen flex">
       {/* Left side - Branding */}
       <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-emerald-900/30 via-background to-background items-center justify-center p-12">
         <div className="max-w-md space-y-8">
@@ -94,7 +94,7 @@ function LoginForm() {
           )}
 
           {(linkError || error) && (
-            <div className="p-4 text-sm text-destructive bg-destructive/10 rounded-xl border border-destructive/20" role="alert">
+            <div className="p-4 text-sm text-destructive-text bg-destructive/10 rounded-xl border border-destructive/20" role="alert">
               {error ?? mapAuthError(linkError ?? undefined)}
             </div>
           )}
@@ -152,7 +152,7 @@ function LoginForm() {
           </p>
         </div>
       </div>
-    </div>
+    </main>
   )
 }
 

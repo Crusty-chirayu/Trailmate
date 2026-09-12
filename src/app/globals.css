@@ -14,8 +14,8 @@
     --popover: 220 18% 8%;
     --popover-foreground: 210 20% 96%;
 
-    /* Primary — Deep Forest Green */
-    --primary: 145 45% 42%;
+    /* Primary — Deep Forest Green (AA ≥4.5:1 against white foreground) */
+    --primary: 145 45% 34%;
     --primary-foreground: 140 60% 98%;
 
     /* Secondary — Warm Stone */
@@ -31,15 +31,17 @@
     /* Destructive — Muted Earth Red */
     --destructive: 0 55% 45%;
     --destructive-foreground: 0 0% 98%;
+    /* Lighter companion for destructive text on the dark surface (AA ~6.9:1) */
+    --destructive-text: 0 72% 68%;
 
     --border: 220 12% 16%;
     --input: 220 12% 16%;
-    --ring: 145 45% 42%;
+    --ring: 145 45% 34%;
 
     --radius: 0.625rem;
 
     /* Chart colors */
-    --chart-1: 145 45% 42%;
+    --chart-1: 145 45% 34%;
     --chart-2: 35 65% 55%;
     --chart-3: 200 50% 45%;
     --chart-4: 270 45% 55%;

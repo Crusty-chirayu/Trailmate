@@ -192,7 +192,7 @@ export default function TrackingDashboard({ tripId, tripTitle, userId }: Trackin
                 </div>
               )}
               {serverCompletion === 'error' && (
-                <p className="mt-3 text-xs text-destructive" role="alert">
+                <p className="mt-3 text-xs text-destructive-text" role="alert">
                   Sign-in is required to finish this trip on the server. Local data is preserved.
                 </p>
               )}

@@ -52,7 +52,7 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex">
+    <main className="min-h-screen flex">
       <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-emerald-900/30 via-background to-background items-center justify-center p-12">
         <div className="max-w-md space-y-8">
           <Link href="/" className="flex items-center gap-3 group">
@@ -75,7 +75,7 @@ export default function SignupPage() {
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Create your account</h1>
             <p className="text-muted-foreground">Start planning your outdoor adventures</p>
           </div>
-          {error && <div className="p-4 text-sm text-destructive bg-destructive/10 rounded-xl border border-destructive/20" role="alert">{error}</div>}
+          {error && <div className="p-4 text-sm text-destructive-text bg-destructive/10 rounded-xl border border-destructive/20" role="alert">{error}</div>}
           {message && <div className="p-4 text-sm text-emerald-500 bg-emerald-500/10 rounded-xl border border-emerald-500/20" role="status">{message}</div>}
           <form onSubmit={handleSignup} className="space-y-5">
             <div className="space-y-2">
@@ -94,6 +94,6 @@ export default function SignupPage() {
           <p className="text-center text-sm text-muted-foreground">Already have an account?{' '}<Link href="/login" className="font-medium text-primary hover:underline">Sign in</Link></p>
         </div>
       </div>
-    </div>
+    </main>
   )
 }

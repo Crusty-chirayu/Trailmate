@@ -72,7 +72,7 @@ export default async function TripsPage({
             <div className="text-xs text-muted-foreground mt-1">Completed</div>
           </div>
           <div className="rounded-xl border border-border bg-card/50 p-4">
-            <div className="text-2xl font-bold tabular-nums text-destructive">{statusCounts.cancelled}</div>
+            <div className="text-2xl font-bold tabular-nums text-destructive-text">{statusCounts.cancelled}</div>
             <div className="text-xs text-muted-foreground mt-1">Cancelled</div>
           </div>
         </div>

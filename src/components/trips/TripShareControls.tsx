@@ -182,7 +182,7 @@ export default function TripShareControls({
         </div>
       )}
       {error && (
-        <p className="mt-2 text-xs text-destructive" role="alert">
+        <p className="mt-2 text-xs text-destructive-text" role="alert">
           {error}
         </p>
       )}

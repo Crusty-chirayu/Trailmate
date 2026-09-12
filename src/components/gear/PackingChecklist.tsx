@@ -109,7 +109,7 @@ export function PackingChecklist({ tripId, initialItems, onToggle, onRemove }: P
               : `Required: ${progress.requiredPacked}/${progress.requiredItems} · Optional: ${progress.optionalPacked}/${progress.optionalItems}`}
         </p>
         {error && (
-          <p className="mt-2 text-xs text-destructive" role="alert">
+          <p className="mt-2 text-xs text-destructive-text" role="alert">
             {error}
           </p>
         )}
@@ -235,7 +235,7 @@ function CategoryGroups({
                     size="icon"
                     aria-label={`Remove ${item.itemName} from packing list`}
                     onClick={() => onRemove(item)}
-                    className="h-8 w-8 shrink-0 text-muted-foreground hover:text-destructive"
+                    className="h-8 w-8 shrink-0 text-muted-foreground hover:text-destructive-text"
                   >
                     <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none" aria-hidden="true">
                       <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

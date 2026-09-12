@@ -23,6 +23,6 @@ describe('Next.js security headers', () => {
     expect(csp).toContain('https://*.supabase.co')
     expect(csp).toContain('wss://*.supabase.co')
     expect(csp).toContain("font-src 'self' data:")
-    expect(csp).toContain("media-src 'self' blob:")
+    expect(csp).toContain("media-src 'self' blob: https://cdn.sceneai.art")
   })
 })

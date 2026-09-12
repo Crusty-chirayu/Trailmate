@@ -66,7 +66,7 @@ export default async function GearPage() {
         </Card>
 
         {loadError && (
-          <p className="mb-6 rounded-md border border-destructive/50 bg-destructive/10 p-4 text-sm text-destructive" role="alert">
+          <p className="mb-6 rounded-md border border-destructive/50 bg-destructive/10 p-4 text-sm text-destructive-text" role="alert">
             {loadError}
           </p>
         )}
