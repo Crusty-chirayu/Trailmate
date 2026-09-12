@@ -2,12 +2,20 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 import type { Database } from '@/types/database'
 
-/** Public auth endpoints and the marketing landing page remain reachable;
+/** Public auth endpoints, the marketing landing page, password recovery, and
+ * narrow-projection public trail pages remain reachable;
  * all user-data routes fail closed. The landing page (/ ) handles the
- * authenticated-user redirect itself, so it must stay public. */
+ * authenticated-user redirect itself, so it must stay public.
+ * /trails/[id] is intentionally public: it uses a narrow column projection
+ * over the anon SELECT policy for `visibility = 'public'` trips.
+ * /share/[token] stays protected: the share RPCs are granted to the
+ * authenticated role only. */
 export function isProtectedPath(pathname: string): boolean {
+  // /trails/[id] is public by design (anon RLS, narrow projection).
+  if (pathname === '/trails' || pathname.startsWith('/trails/')) return false
   return pathname === '/dashboard' || pathname === '/trips' || pathname.startsWith('/trips/')
     || pathname === '/gear' || pathname.startsWith('/gear/')
+    || pathname === '/share' || pathname.startsWith('/share/')
 }
 
 function loginRedirect(request: NextRequest): NextResponse {

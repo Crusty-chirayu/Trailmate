@@ -9,6 +9,8 @@ describe('protected route boundary', () => {
     '/trips/trip-1',
     '/gear',
     '/gear/template-1',
+    '/share',
+    '/share/some-token',
   ])('protects %s', path => {
     expect(isProtectedPath(path)).toBe(true)
   })
@@ -19,7 +21,7 @@ describe('protected route boundary', () => {
     '/signup',
     '/auth/callback',
     '/reset-password',
-    '/share/some-token',
+    '/trails',
     '/trails/trail-1',
   ])('keeps %s public', path => {
     expect(isProtectedPath(path)).toBe(false)

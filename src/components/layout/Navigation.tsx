@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/hooks/useAuth'
 import { createClient } from '@/lib/supabase/client'
 import { Mountain, LogOut, User, Menu, X, LayoutDashboard, Route, Backpack } from 'lucide-react'
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { Button } from '@/components/ui/Button'
 import { cn } from '@/utils/utils'
 
@@ -21,7 +21,9 @@ export default function Navigation() {
   const triggerRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
-  const supabase = createClient()
+  // The browser client factory returns a new instance per call; memoize it so
+  // logout always acts on the same session-bearing client as the auth hook.
+  const supabase = useMemo(() => createClient(), [])
 
   // Accessible mobile menu: Escape closes it, focus is moved into the menu
   // when it opens and returned to the trigger when it closes.

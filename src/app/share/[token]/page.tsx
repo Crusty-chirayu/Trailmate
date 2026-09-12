@@ -12,6 +12,15 @@ export async function generateMetadata({ params }: { params: Promise<{ token: st
   return { title: 'Shared trail — TrailMate', description: `Shared trail ${token.slice(0, 8)}` }
 }
 
+/**
+ * Bearer-token trail page for `visibility = 'shared'` trips.
+ *
+ * Authenticated visitors only: the migration grants the `get_shared_trip` /
+ * `get_shared_route` RPCs to the authenticated role, and the service calls
+ * them with the visitor's session. Unknown, revoked, or cancelled-trip tokens
+ * render the shared 404 (fail closed, no existence oracle beyond the generic
+ * not-found page shared by every missing route).
+ */
 export default async function SharedTrailPage({ params }: { params: Promise<{ token: string }> }) {
   const { token } = await params
   const supabase = await createClient()
@@ -20,10 +29,15 @@ export default async function SharedTrailPage({ params }: { params: Promise<{ to
   } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const trip = await TripShareService.getSharedTrip(token)
-  if (!trip) notFound()
-
-  const rawPoints = await TripShareService.getSharedRoute(token)
+  let trip: Awaited<ReturnType<typeof TripShareService.getSharedTrip>>
+  let rawPoints: Awaited<ReturnType<typeof TripShareService.getSharedRoute>>
+  try {
+    trip = await TripShareService.getSharedTrip(token)
+    if (!trip) notFound()
+    rawPoints = await TripShareService.getSharedRoute(token)
+  } catch {
+    notFound()
+  }
   const route: RouteHistoryPoint[] = rawPoints.map(p => ({
     lat: p.lat,
     lng: p.lng,

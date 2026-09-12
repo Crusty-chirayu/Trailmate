@@ -11,6 +11,14 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   return { title: `Public trail — TrailMate` , description: `Public trail #${id.slice(0, 8)}` }
 }
 
+/**
+ * Public trail page for `visibility = 'public'` trips.
+ *
+ * Intentionally unauthenticated and narrow-projection: the anon RLS policy
+ * permits only public-profile columns, so no session, no owner identity, no
+ * gear/notes, and no private data can leak. Non-public or missing trips
+ * render the shared 404 (fail closed).
+ */
 export default async function PublicTrailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const supabase = await createClient()

@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test'
 
 // Deterministic public-surface coverage that does not depend on a live
-// backend: password-recovery entry point and the global not-found page.
+// backend: password-recovery entry point, the global not-found page, and the
+// share/trail contract (/share/* is authenticated-only; /trails/* is public).
 // (Authenticated journeys require real Supabase credentials, which the E2E
 // harness intentionally does not provide.)
 
@@ -46,6 +47,36 @@ test.describe('not-found page', () => {
     await expect(
       page.getByRole('link', { name: 'View Trips' }),
     ).toHaveAttribute('href', '/trips')
+  })
+})
+
+test.describe('share and trail contract', () => {
+  test('unknown share token redirects to /login (authenticated-only channel)', async ({
+    page,
+  }) => {
+    await page.goto('/share/this-token-does-not-exist')
+
+    await expect(page).toHaveURL(/\/login$/)
+    await expect(
+      page.getByRole('heading', { name: 'Welcome back' }),
+    ).toBeVisible()
+  })
+
+  test('unknown public trail renders the shared 404 without a login redirect', async ({
+    page,
+  }) => {
+    // Next.js renders the app not-found boundary with a 200 status for a
+    // dynamic route that calls notFound(); the contract under test is that an
+    // unknown trail stays on its URL and shows the shared 404 instead of
+    // bouncing to /login.
+    await page.goto('/trails/00000000-0000-4000-8000-000000000000')
+
+    await expect(
+      page.getByRole('heading', { name: 'Page not found' }),
+    ).toBeVisible()
+    await expect(page).toHaveURL(
+      /\/trails\/00000000-0000-4000-8000-000000000000$/,
+    )
   })
 })
 

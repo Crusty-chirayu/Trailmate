@@ -4,7 +4,9 @@ import { type NextRequest } from 'next/server'
 
 /**
  * PKCE auth callback. Handles three link kinds:
- * - Email confirmation / magic link: exchange code, continue to origin.
+ * - Email confirmation / magic link: exchange code, continue to a validated
+ *   same-origin `next` path (defaulting to the origin, which routes signed-in
+ *   users to /dashboard).
  * - Password recovery (`type=recovery`): exchange code, route to
  *   /update-password so the user can actually set the new password.
  * - Auth errors from Supabase links (`error` + `error_description`): surface
@@ -41,5 +43,10 @@ export async function GET(request: NextRequest) {
   }
 
   // URL to redirect to after sign in process completes
-  return NextResponse.redirect(requestUrl.origin)
+  const next = requestUrl.searchParams.get('next')
+  return NextResponse.redirect(
+    next && next.startsWith('/') && !next.startsWith('//')
+      ? new URL(next, requestUrl.origin)
+      : requestUrl.origin,
+  )
 }
