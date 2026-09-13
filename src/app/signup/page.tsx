@@ -91,7 +91,7 @@ export default function SignupPage() {
               {loading ? 'Creating account...' : 'Create Account'}{!loading && <ArrowRight className="ml-2 h-4 w-4" />}
             </Button>
           </form>
-          <p className="text-center text-sm text-muted-foreground">Already have an account?{' '}<Link href="/login" className="font-medium text-primary hover:underline">Sign in</Link></p>
+          <p className="text-center text-sm text-muted-foreground">Already have an account?{' '}<Link href="/login" className="font-medium text-emerald-300 hover:underline">Sign in</Link></p>
         </div>
       </div>
     </main>

@@ -277,8 +277,16 @@ export function useTracking(tripId: string, options?: UseTrackingOptions) {
 
     const onOnline = () => setOnline(true)
     const onOffline = () => setOnline(false)
+    const onVisibilityChange = () => {
+      if (document.visibilityState !== 'hidden') return
+      const current = sessionRef.current
+      if (current?.status !== 'acquiring' && current?.status !== 'tracking') return
+      engine.stop()
+      dispatchRef.current?.({ type: 'PAUSE', pausedAt: Date.now() })
+    }
     window.addEventListener('online', onOnline)
     window.addEventListener('offline', onOffline)
+    document.addEventListener('visibilitychange', onVisibilityChange)
 
     void init()
 
@@ -288,6 +296,7 @@ export function useTracking(tripId: string, options?: UseTrackingOptions) {
       sync.stop()
       window.removeEventListener('online', onOnline)
       window.removeEventListener('offline', onOffline)
+      document.removeEventListener('visibilitychange', onVisibilityChange)
       sessionRef.current = null
     }
     // userId is intentionally part of the lifecycle: an account switch must

@@ -124,7 +124,7 @@ export default function ResetPasswordPage() {
             <Link href="/login" className="text-muted-foreground hover:text-foreground transition-colors">
               ← Back to sign in
             </Link>
-            <Link href="/signup" className="font-medium text-primary hover:underline">
+            <Link href="/signup" className="font-medium text-emerald-300 hover:underline">
               Create account
             </Link>
           </div>

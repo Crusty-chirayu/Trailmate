@@ -133,7 +133,7 @@ function LoginForm() {
             </div>
 
             <div className="flex items-center justify-end">
-              <Link href="/reset-password" className="text-sm font-medium text-primary hover:underline">
+              <Link href="/reset-password" className="text-sm font-medium text-emerald-300 hover:underline">
                 Forgot password?
               </Link>
             </div>
@@ -146,7 +146,7 @@ function LoginForm() {
 
           <p className="text-center text-sm text-muted-foreground">
             Don&apos;t have an account?{' '}
-            <Link href="/signup" className="font-medium text-primary hover:underline">
+            <Link href="/signup" className="font-medium text-emerald-300 hover:underline">
               Create one
             </Link>
           </p>

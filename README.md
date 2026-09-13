@@ -31,6 +31,7 @@ trail pages, and an installable offline app shell.
 - Gear templates and snapshot-based trip packing checklists
 - Server-rendered expedition analytics, activity summaries, trends, and records
 - Installable PWA shell with offline fallback
+- Screen wake lock on supported browsers and pause-on-background GPS safety
 - End-to-end auth-boundary, public-surface, and security-header coverage
 - GitHub Actions CI pipeline (quality, E2E, database, security)
 
@@ -38,14 +39,22 @@ trail pages, and an installable offline app shell.
 
 - Background GPS recording after the browser closes the page
 - Offline map tiles or offline gear/trip mutations
-- Accessibility and performance audit
 - Production deployment verification
 
 Map tiles require network access. GPS points continue to be written locally
 while connectivity is unavailable and are eligible for later synchronization;
 account-scoped isolation, retry hardening, and completion reconciliation are
-implemented, while offline map tiles and background recording remain future
-work.
+implemented. Browser GPS is deliberately paused when the page becomes hidden;
+the Screen Wake Lock API can prevent ordinary screen sleep where supported, but
+it cannot keep GPS running after the page is backgrounded or closed. The public
+OpenStreetMap tile endpoint is not used for bulk offline tile storage, so maps
+are unavailable without network access.
+
+The local production verification baseline includes lint, typecheck, unit tests,
+production build, Playwright E2E, database artifact validation, secret scanning,
+dependency audit, and axe accessibility checks on public and protected-entry
+surfaces. A hosted deployment URL and real Supabase project credentials are
+still required for live account-flow and production verification.
 
 ## Runtime requirements
 
