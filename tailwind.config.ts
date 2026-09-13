@@ -21,6 +21,7 @@ const config: Config = {
         "popover-foreground": "hsl(var(--popover-foreground) / <alpha-value>)",
         primary: "hsl(var(--primary) / <alpha-value>)",
         "primary-foreground": "hsl(var(--primary-foreground) / <alpha-value>)",
+        "primary-text": "hsl(var(--primary-text) / <alpha-value>)",
         secondary: "hsl(var(--secondary) / <alpha-value>)",
         "secondary-foreground": "hsl(var(--secondary-foreground) / <alpha-value>)",
         muted: "hsl(var(--muted) / <alpha-value>)",

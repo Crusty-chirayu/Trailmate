@@ -66,12 +66,12 @@ export default function Navigation() {
   if (isStandalonePage) return null
 
   return (
-    <nav className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-md">
+    <nav className="sticky top-0 z-40 border-b border-border/80 bg-background/90 backdrop-blur-xl">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <Link href={user ? '/dashboard' : '/'} className="flex items-center gap-2 group">
-            <Mountain className="h-6 w-6 text-primary transition-transform group-hover:scale-110" />
-            <span className="text-xl font-bold tracking-tight">TrailMate</span>
+          <Link href={user ? '/dashboard' : '/'} className="group flex items-center gap-2.5">
+            <Mountain className="h-6 w-6 text-primary-text transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" />
+            <span className="text-lg font-semibold tracking-[0.02em]">TrailMate</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-6">
@@ -80,7 +80,7 @@ export default function Navigation() {
             ) : user ? (
               <>
                 {AUTH_NAV_LINKS.map(({ href, label }) => (
-                  <Link key={href} href={href} className={cn('text-sm font-medium transition-colors', isActive(href) ? 'text-primary' : 'text-muted-foreground hover:text-foreground')}>
+                  <Link key={href} href={href} className={cn('relative py-5 text-sm font-medium transition-colors duration-200', isActive(href) ? 'text-foreground after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:bg-accent' : 'text-muted-foreground hover:text-foreground')}>
                     {label}
                   </Link>
                 ))}

@@ -120,7 +120,7 @@ export default async function TripDetailPage({
   } as const
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="page-shell">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header */}
         <div className="mb-8">
@@ -128,7 +128,7 @@ export default async function TripDetailPage({
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Trips
           </Button>
-          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+          <div className="motion-rise flex flex-col sm:flex-row sm:items-start justify-between gap-4">
             <div className="flex-1">
               <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">{trip.title}</h1>
               <div className="flex items-center gap-3">

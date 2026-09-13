@@ -55,7 +55,7 @@ export default function StatusIndicator({
   const signalGood = status === 'tracking' || status === 'paused'
 
   return (
-    <div className={cn('flex flex-wrap items-center gap-x-4 gap-y-2 text-sm', className)}>
+    <div className={cn('motion-reveal flex flex-wrap items-center gap-x-4 gap-y-2 text-sm', className)}>
       {/* Recording / GPS status */}
       <div className="flex items-center gap-2">
         <span className="relative flex h-2.5 w-2.5">

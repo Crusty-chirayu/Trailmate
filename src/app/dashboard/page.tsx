@@ -90,11 +90,11 @@ export default async function DashboardPage({
   const hasAnyData = analytics.totalTrips > 0
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="page-shell">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <header className="mb-8 sm:mb-12">
-          <p className="text-sm text-muted-foreground mb-1">Welcome back</p>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">Expedition Log</h1>
+        <header className="motion-rise mb-8 border-b border-border/80 pb-8 sm:mb-12 sm:pb-10">
+          <p className="eyebrow mb-3">Personal field notes</p>
+          <h1 className="text-4xl font-semibold tracking-[-0.04em] sm:text-6xl">Expedition Log</h1>
           <p className="text-muted-foreground mt-2 max-w-xl">
             Distance, time and elevation — measured only from your recorded routes, never estimated.
           </p>
@@ -122,7 +122,7 @@ export default async function DashboardPage({
               ))}
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
+            <div className="motion-rise mb-8 grid grid-cols-2 gap-px overflow-hidden border border-border/80 bg-border lg:grid-cols-4">
               <StatCard
                 label="Total trips"
                 value={String(analytics.totalTrips)}
@@ -276,7 +276,7 @@ export default async function DashboardPage({
                     <Link
                       key={trip.id}
                       href={`/trips/${trip.id}`}
-                      className="flex items-center justify-between p-4 rounded-xl border border-border bg-card/50 hover:bg-accent/50 transition-colors"
+                      className="interactive-lift flex items-center justify-between border border-border/80 bg-card/70 p-4"
                     >
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-3 mb-1">
@@ -338,7 +338,7 @@ function LoadingState() {
 
 function StatCard({ label, value, detail }: { label: string; value: string; detail?: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-border bg-card/50 p-4 sm:p-5">
+    <div className="bg-card/75 p-4 sm:p-5">
       <dt className="text-xs uppercase tracking-widest text-muted-foreground mb-2">{label}</dt>
       <dd>
         <span className="block text-2xl sm:text-3xl font-bold tabular-nums tracking-tight">{value}</span>

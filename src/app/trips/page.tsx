@@ -35,12 +35,13 @@ export default async function TripsPage({
   }
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="page-shell">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-1">Your Adventures</h1>
+            <p className="eyebrow mb-3">Your route library</p>
+            <h1 className="text-3xl font-semibold tracking-[-0.03em] sm:text-5xl">Your Adventures</h1>
             <p className="text-muted-foreground">
               Manage your outdoor trips and expeditions
             </p>
@@ -153,7 +154,7 @@ export default async function TripsPage({
           <div className="space-y-3">
             {filteredTrips.map((trip) => (
               <Link key={trip.id} href={`/trips/${trip.id}`} className="block">
-                <div className="rounded-xl border border-border bg-card/50 p-5 hover:border-primary/30 hover:bg-card transition-all group">
+                <div className="interactive-lift border border-border/80 bg-card/70 p-5 group">
                   <div className="flex items-start justify-between">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 mb-2">

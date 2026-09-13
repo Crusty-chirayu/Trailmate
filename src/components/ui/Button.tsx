@@ -11,14 +11,14 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'default', size = 'default', href, children, ...props }, ref) => {
     const buttonClasses = cn(
-      'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background',
+      'btn-premium ring-offset-background active:translate-y-px',
       {
-        'bg-primary text-primary-foreground hover:bg-primary/90': variant === 'default',
+        'bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_8px_24px_rgba(93,145,91,0.2)]': variant === 'default',
         'bg-destructive text-destructive-foreground hover:bg-destructive/90': variant === 'destructive',
-        'border border-input bg-background hover:bg-accent hover:text-accent-foreground': variant === 'outline',
+        'border border-input bg-transparent hover:bg-accent hover:text-accent-foreground': variant === 'outline',
         'bg-secondary text-secondary-foreground hover:bg-secondary/80': variant === 'secondary',
-        'hover:bg-accent hover:text-accent-foreground': variant === 'ghost',
-        'text-primary underline-offset-4 hover:underline': variant === 'link',
+        'hover:bg-white/5 hover:text-foreground': variant === 'ghost',
+        'text-primary-text underline-offset-4 hover:underline': variant === 'link',
       },
       {
         'h-10 py-2 px-4': size === 'default',

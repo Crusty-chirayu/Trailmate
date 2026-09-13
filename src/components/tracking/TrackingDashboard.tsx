@@ -77,7 +77,7 @@ export default function TrackingDashboard({ tripId, tripTitle, userId }: Trackin
   const mapPoints = points.map(p => ({ latitude: p.latitude, longitude: p.longitude }))
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="page-shell">
       {/* Live region announces state changes to assistive tech. */}
       <div aria-live="polite" className="sr-only">
         {status === 'tracking' ? 'Recording in progress' : `Status: ${status}`}
@@ -90,7 +90,7 @@ export default function TrackingDashboard({ tripId, tripTitle, userId }: Trackin
             <ArrowLeft className="mr-1 h-4 w-4" aria-hidden />
             Back to trip
           </Button>
-          <div className="flex flex-wrap items-end justify-between gap-3">
+          <div className="motion-rise flex flex-wrap items-end justify-between gap-3">
             <div>
               <h1 className="text-2xl font-bold sm:text-3xl tracking-tight">{tripTitle}</h1>
               <StatusIndicator
@@ -121,7 +121,7 @@ export default function TrackingDashboard({ tripId, tripTitle, userId }: Trackin
           {/* Instrument panel */}
           <section aria-label="Tracking instruments" className="order-2 space-y-4 lg:order-none">
             {/* Primary metrics */}
-            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border">
+            <div className="grid grid-cols-2 gap-px overflow-hidden border border-border bg-border">
               <MetricReadout label="Distance" value={formatDistance(stats.distance)} className="bg-card" accent />
               <MetricReadout label="Elapsed" value={formatTime(liveElapsed)} className="bg-card" />
               <MetricReadout label="Avg speed" value={formatSpeed(stats.averageSpeed)} className="bg-card" />

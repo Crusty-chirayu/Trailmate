@@ -41,7 +41,7 @@ export default function TrackingMap({ points, current, className }: TrackingMapP
   const hasRoute = route.length >= 2
 
   return (
-    <div className={cn('relative h-full w-full min-h-64 overflow-hidden bg-slate-950', className)}>
+    <div className={cn('relative h-full w-full min-h-64 overflow-hidden border border-border/60 bg-[#0b1511]', className)}>
       <MapContainer
         center={[center.latitude, center.longitude]}
         zoom={16}
@@ -57,14 +57,14 @@ export default function TrackingMap({ points, current, className }: TrackingMapP
         {hasRoute && (
           <Polyline
             positions={route}
-            pathOptions={{ color: '#10b981', weight: 4, opacity: 0.9 }}
+            pathOptions={{ color: '#b7d58d', weight: 4, opacity: 0.92 }}
           />
         )}
         {current && (
           <CircleMarker
             center={[current.latitude, current.longitude]}
             radius={7}
-            pathOptions={{ color: '#34d399', weight: 3, fillColor: '#10b981', fillOpacity: 1 }}
+            pathOptions={{ color: '#f1c76b', weight: 3, fillColor: '#5e9b68', fillOpacity: 1 }}
           />
         )}
       </MapContainer>

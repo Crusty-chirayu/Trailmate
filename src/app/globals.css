@@ -4,52 +4,55 @@
 
 @layer base {
   :root {
-    /* TrailMate Design System — Outdoor Premium Palette */
-    --background: 220 18% 7%;
-    --foreground: 210 20% 96%;
+    /* TrailMate Design System — night field, lichen, and trail-marker ochre */
+    --background: 150 18% 6%;
+    --foreground: 42 25% 94%;
 
-    --card: 220 16% 9%;
-    --card-foreground: 210 20% 95%;
+    --card: 150 15% 9%;
+    --card-foreground: 42 25% 94%;
 
-    --popover: 220 18% 8%;
-    --popover-foreground: 210 20% 96%;
+    --popover: 150 16% 8%;
+    --popover-foreground: 42 25% 94%;
 
-    /* Primary — Deep Forest Green (AA ≥4.5:1 against white foreground) */
-    --primary: 145 45% 34%;
-    --primary-foreground: 140 60% 98%;
+    --primary: 146 42% 38%;
+    --primary-foreground: 48 38% 97%;
+    --primary-text: 145 55% 70%;
 
-    /* Secondary — Warm Stone */
-    --secondary: 220 12% 15%;
-    --secondary-foreground: 210 20% 92%;
+    --secondary: 150 11% 15%;
+    --secondary-foreground: 42 22% 90%;
 
-    --muted: 220 12% 13%;
-    --muted-foreground: 215 12% 60%;
+    --muted: 150 11% 13%;
+    --muted-foreground: 150 8% 64%;
 
-    --accent: 220 12% 15%;
-    --accent-foreground: 210 20% 92%;
+    --accent: 39 68% 58%;
+    --accent-foreground: 150 20% 7%;
 
-    /* Destructive — Muted Earth Red */
-    --destructive: 0 55% 45%;
+    --destructive: 4 56% 47%;
     --destructive-foreground: 0 0% 98%;
-    /* Lighter companion for destructive text on the dark surface (AA ~6.9:1) */
-    --destructive-text: 0 72% 68%;
+    --destructive-text: 4 75% 72%;
 
-    --border: 220 12% 16%;
-    --input: 220 12% 16%;
-    --ring: 145 45% 34%;
+    --border: 150 10% 21%;
+    --input: 150 10% 24%;
+    --ring: 39 68% 58%;
 
-    --radius: 0.625rem;
+    --radius: 0.5rem;
+    --shadow-soft: 0 18px 60px rgba(0, 0, 0, 0.24);
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --duration-fast: 160ms;
+    --duration-base: 280ms;
+    --duration-slow: 650ms;
 
     /* Chart colors */
-    --chart-1: 145 45% 34%;
-    --chart-2: 35 65% 55%;
-    --chart-3: 200 50% 45%;
-    --chart-4: 270 45% 55%;
-    --chart-5: 180 40% 50%;
+    --chart-1: 146 42% 48%;
+    --chart-2: 39 68% 58%;
+    --chart-3: 188 52% 52%;
+    --chart-4: 12 62% 58%;
+    --chart-5: 78 42% 56%;
 
     /* Chart semantic colors for elevation/profile charts */
-    --chart-area: rgba(34, 197, 94, 0.12);
-    --chart-line: #22c55e;
+    --chart-area: rgba(126, 170, 117, 0.14);
+    --chart-line: #9acb8c;
     --chart-low: #94a3b8;
     --chart-high: #22c55e;
     --chart-start: #22c55e;
@@ -66,16 +69,34 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
   }
 
   body {
     @apply bg-background text-foreground;
+    background-image:
+      linear-gradient(rgba(146, 176, 130, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(146, 176, 130, 0.025) 1px, transparent 1px),
+      radial-gradient(circle at 84% -12%, rgba(181, 145, 66, 0.11), transparent 34rem),
+      radial-gradient(circle at 8% 22%, rgba(55, 103, 76, 0.14), transparent 28rem);
+    background-size: 72px 72px, 72px 72px, auto, auto;
+    background-attachment: fixed;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+
+  ::selection {
+    color: hsl(var(--accent-foreground));
+    background: hsl(var(--accent));
   }
 
   /* Focus visible styles */
   :focus-visible {
     @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+    transition: box-shadow var(--duration-fast) var(--ease-out);
   }
 
   /* Reduced motion */
@@ -94,7 +115,7 @@
 @layer components {
   /* Skip to content link */
   .skip-link {
-    @apply absolute -top-10 left-4 z-[100] bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium transition-all;
+    @apply absolute -top-10 left-4 z-[100] bg-accent text-accent-foreground px-4 py-2 rounded-sm font-medium transition-all;
   }
 
   .skip-link:focus {
@@ -103,7 +124,8 @@
 
   /* Premium button styles */
   .btn-premium {
-    @apply inline-flex items-center justify-center rounded-lg text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+    @apply inline-flex items-center justify-center rounded-sm text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+    transition-timing-function: var(--ease-out);
   }
 
   .btn-hero {
@@ -115,14 +137,37 @@
     @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
+  .page-shell {
+    @apply min-h-screen bg-background text-foreground;
+    background-image: linear-gradient(115deg, rgba(255,255,255,0.025), transparent 38%);
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase text-primary-text;
+    letter-spacing: 0.18em;
+  }
+
+  .section-kicker {
+    @apply flex items-center gap-3 text-xs font-semibold uppercase text-muted-foreground;
+    letter-spacing: 0.16em;
+  }
+
+  .section-kicker::before {
+    content: '';
+    width: 2.5rem;
+    height: 1px;
+    background: hsl(var(--accent));
+  }
+
   /* Glass card */
   .glass-card {
-    @apply rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm;
+    @apply rounded-lg border border-white/10 bg-white/[0.035] backdrop-blur-sm;
+    box-shadow: var(--shadow-soft);
   }
 
   /* Gradient text */
   .gradient-text {
-    @apply bg-gradient-to-r from-emerald-400 via-emerald-300 to-teal-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-emerald-300 via-lime-200 to-amber-200 bg-clip-text text-transparent;
   }
 
   /* Subtle glow */
@@ -132,6 +177,33 @@
 
   .glow-md {
     box-shadow: 0 0 40px rgba(34, 197, 94, 0.2);
+  }
+
+  .motion-reveal {
+    animation: reveal var(--duration-slow) var(--ease-out) both;
+  }
+
+  .motion-rise {
+    animation: rise var(--duration-slow) var(--ease-out) both;
+  }
+
+  .interactive-lift {
+    transition: transform var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out), background-color var(--duration-base) var(--ease-out);
+  }
+
+  .interactive-lift:hover {
+    transform: translateY(-3px);
+    border-color: hsl(var(--primary) / 0.55);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .motion-reveal,
+    .motion-rise {
+      animation: none;
+    }
+    .interactive-lift:hover {
+      transform: none;
+    }
   }
 }
 
@@ -179,5 +251,15 @@
 @keyframes scaleIn {
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes reveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 

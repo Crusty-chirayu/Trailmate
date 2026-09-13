@@ -72,13 +72,13 @@ const menuTriggerRef = useRef<HTMLButtonElement>(null)
   }, [mobileMenuOpen, closeMenu])
 
   return (
-    <div className='min-h-screen bg-background'>
+    <div className='page-shell'>
       <a href='#main-content' className='skip-link'>Skip to content</a>
-      <header className={cn('fixed top-0 left-0 right-0 z-50 transition-all duration-300', scrollY > 50 ? 'bg-background/95 backdrop-blur-md border-b border-border' : 'bg-transparent')}>
+      <header className={cn('fixed top-0 left-0 right-0 z-50 transition-all duration-500', scrollY > 50 ? 'bg-background/90 backdrop-blur-xl border-b border-border/80' : 'bg-transparent')}>
         <nav className='section-container flex items-center justify-between h-16 sm:h-20'>
           <Link href='/' className='flex items-center gap-2 group'>
-            <Mountain className='h-6 w-6 text-primary transition-transform group-hover:scale-110' />
-            <span className='text-xl font-bold tracking-tight'>TrailMate</span>
+            <Mountain className='h-6 w-6 text-primary-text transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110' />
+            <span className='text-lg font-semibold tracking-[0.02em]'>TrailMate</span>
           </Link>
           <div className='hidden lg:flex items-center gap-8'>
             {NAV_LINKS.map(({ label, href }) => (
@@ -118,10 +118,10 @@ const menuTriggerRef = useRef<HTMLButtonElement>(null)
           <div className='absolute inset-0 z-10 bg-gradient-to-b from-black/60 via-black/40 to-background' />
           <div className='relative z-20 section-container text-center max-w-4xl mx-auto'>
             <div className='animate-fade-in-up'>
-              <p className='text-sm uppercase tracking-[0.3em] text-emerald-400 mb-6 font-medium'>Outdoor Adventure Platform</p>
-              <h1 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-6'>Plan the journey. <span className='gradient-text'>Live the trail.</span></h1>
-              <p className='text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed'>Track GPS routes in real time, manage gear, analyze your progress, and share your outdoor adventures.</p>
-              <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
+              <p className='eyebrow mb-6 motion-rise'>Outdoor Adventure Platform</p>
+              <h1 className='motion-rise text-4xl font-semibold leading-[1.02] tracking-[-0.04em] sm:text-6xl lg:text-8xl'>Plan the journey. <span className='gradient-text'>Live the trail.</span></h1>
+              <p className='motion-rise mx-auto mb-10 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg'>Track GPS routes in real time, manage gear, analyze your progress, and share your outdoor adventures.</p>
+              <div className='motion-rise flex flex-col items-center justify-center gap-4 sm:flex-row'>
                 <Link href='/signup'><Button size='lg' className='rounded-full px-8 text-base font-semibold glow-sm'>Start Exploring<ArrowRight className='ml-2 h-5 w-5' /></Button></Link>
                 <Link href='#explore'><Button variant='outline' size='lg' className='rounded-full px-8 text-base border-white/20 hover:border-white/40'>Learn More</Button></Link>
               </div>
@@ -131,14 +131,15 @@ const menuTriggerRef = useRef<HTMLButtonElement>(null)
         </section>
         <section className='py-24 sm:py-32'>
           <div className='section-container'>
-            <div className='text-center mb-16'>
-              <h2 className='text-3xl sm:text-4xl font-bold tracking-tight mb-4'>Everything you need for the trail</h2>
+            <div className='mb-16 max-w-2xl'>
+              <p className='section-kicker mb-5'>The TrailMate field guide</p>
+              <h2 className='text-3xl font-semibold tracking-[-0.03em] sm:text-5xl'>Everything you need for the trail</h2>
               <p className='text-muted-foreground text-lg max-w-2xl mx-auto'>From planning to tracking to remembering.</p>
             </div>
-            <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
+            <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
               {SECTIONS.map(({ id, title, description, icon: Icon }) => (
-                <div key={id} id={id} className={cn('group rounded-xl border border-border bg-card/50 p-8 transition-all duration-300 hover:border-primary/30 hover:bg-card hover:glow-sm animate-fade-in-up')}>
-                  <div className='h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors'><Icon className='h-6 w-6 text-primary' /></div>
+                <div key={id} id={id} className={cn('group interactive-lift border border-border/80 bg-card/70 p-7 motion-rise')}>
+                  <div className='mb-10 flex h-11 w-11 items-center justify-center border border-primary/30 bg-primary/10 text-primary-text transition-colors group-hover:bg-primary/20'><Icon className='h-5 w-5' /></div>
                   <h3 className='text-lg font-semibold mb-3'>{title}</h3>
                   <p className='text-muted-foreground leading-relaxed'>{description}</p>
                 </div>
@@ -146,7 +147,7 @@ const menuTriggerRef = useRef<HTMLButtonElement>(null)
             </div>
           </div>
         </section>
-        <section className='py-24 border-y border-border bg-card/30'>
+        <section className='border-y border-border/80 bg-card/30 py-20'>
           <div className='section-container'>
             <div className='grid grid-cols-2 lg:grid-cols-4 gap-8 text-center'>
               {[{ value: 'GPS', label: 'Real-time tracking', icon: MapPin },{ value: 'Offline', label: 'Works without signal', icon: Zap },{ value: 'GPX', label: 'Import & export routes', icon: Route },{ value: 'Free', label: 'Open source', icon: Mountain }].map(({ value, label, icon: Icon }) => (
@@ -155,9 +156,10 @@ const menuTriggerRef = useRef<HTMLButtonElement>(null)
             </div>
           </div>
         </section>
-        <section className='py-24 sm:py-32'>
+        <section className='py-28 sm:py-40'>
           <div className='section-container text-center'>
-            <h2 className='text-3xl sm:text-4xl font-bold tracking-tight mb-6'>Ready for your next adventure?</h2>
+            <p className='section-kicker mb-5 justify-center'>Make the miles count</p>
+            <h2 className='text-3xl font-semibold tracking-[-0.03em] sm:text-5xl'>Ready for your next adventure?</h2>
             <p className='text-muted-foreground text-lg max-w-xl mx-auto mb-10'>Join TrailMate and start planning your outdoor experiences today.</p>
             <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
               <Link href='/signup'><Button size='lg' className='rounded-full px-8 text-base font-semibold'>Start Exploring<ArrowRight className='ml-2 h-5 w-5' /></Button></Link>
