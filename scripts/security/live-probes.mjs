@@ -46,7 +46,12 @@ export async function runLiveProbes({ baseUrl, anonKey, fetchImpl }) {
   })
   const invalidLoginStatus = statusCode(invalidLogin)
 
-  const rest = await fetchImpl(`${base}/rest/v1/`, { headers: { apikey: anonKey } })
+  // Probe a real anon-readable table (the primary `trips` relation) rather than
+  // the OpenAPI root index. Under the publishable-key scheme the root index
+  // returns 401 to the anon key even though table access is fully authorized;
+  // a 200 on a real table proves the PostgREST gateway accepts the key for the
+  // actual application data path.
+  const rest = await fetchImpl(`${base}/rest/v1/trips`, { headers: { apikey: anonKey } })
   const restStatus = statusCode(rest)
 
   return [

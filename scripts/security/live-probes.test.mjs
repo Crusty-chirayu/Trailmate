@@ -17,7 +17,7 @@ describe('live Supabase probes', () => {
     const fetchImpl = fakeFetch({
       'https://example-project.supabase.co/auth/v1/health': { status: 200 },
       'https://example-project.supabase.co/auth/v1/token': { status: 400 },
-      'https://example-project.supabase.co/rest/v1/': { status: 200 },
+      'https://example-project.supabase.co/rest/v1/trips': { status: 200 },
     })
     const results = await runLiveProbes({ baseUrl: BASE, anonKey: KEY, fetchImpl })
     expect(results.map(r => r.ok)).toEqual([true, true, true])
@@ -31,7 +31,7 @@ describe('live Supabase probes', () => {
     const fetchImpl = fakeFetch({
       'https://example-project.supabase.co/auth/v1/health': { status: 200 },
       'https://example-project.supabase.co/auth/v1/token': { status: 200 },
-      'https://example-project.supabase.co/rest/v1/': { status: 200 },
+      'https://example-project.supabase.co/rest/v1/trips': { status: 200 },
     })
     const results = await runLiveProbes({ baseUrl: BASE, anonKey: KEY, fetchImpl })
     expect(results[1].ok).toBe(false)
@@ -42,7 +42,7 @@ describe('live Supabase probes', () => {
     const fetchImpl = fakeFetch({
       'https://example-project.supabase.co/auth/v1/health': { status: 503 },
       'https://example-project.supabase.co/auth/v1/token': { status: 503 },
-      'https://example-project.supabase.co/rest/v1/': { status: 503 },
+      'https://example-project.supabase.co/rest/v1/trips': { status: 503 },
     })
     const results = await runLiveProbes({ baseUrl: BASE, anonKey: KEY, fetchImpl })
     expect(results.every(r => !r.ok)).toBe(true)

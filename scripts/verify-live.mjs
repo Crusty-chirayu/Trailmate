@@ -8,7 +8,8 @@
 //   2. password grant, wrong credentials -> 400 invalid credentials
 //      (proves the auth gateway accepts the anon key end-to-end without
 //       creating any user or data)
-//   3. /rest/v1/ (OpenAPI root) -> PostgREST gateway accepts the key
+//   3. /rest/v1/trips -> PostgREST gateway accepts the key (anon-readable table;
+//      the OpenAPI root index returns 401 under the publishable-key scheme)
 //
 // The script never prints credential values or the project URL — only status
 // codes. Credentials are read from the environment:

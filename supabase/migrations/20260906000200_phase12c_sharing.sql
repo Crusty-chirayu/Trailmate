@@ -27,6 +27,7 @@ CREATE INDEX IF NOT EXISTS idx_trip_shares_trip ON public.trip_shares(trip_id);
 ALTER TABLE public.trip_shares ENABLE ROW LEVEL SECURITY;
 
 -- Owners manage their own share tokens.
+DROP POLICY IF EXISTS "Users can view own trip shares" ON public.trip_shares;
 CREATE POLICY "Users can view own trip shares" ON public.trip_shares
   FOR SELECT TO authenticated
   USING (EXISTS (
@@ -34,6 +35,7 @@ CREATE POLICY "Users can view own trip shares" ON public.trip_shares
     WHERE trips.id = trip_shares.trip_id
       AND trips.user_id = (SELECT auth.uid())
   ));
+DROP POLICY IF EXISTS "Users can create shares for own trips" ON public.trip_shares;
 CREATE POLICY "Users can create shares for own trips" ON public.trip_shares
   FOR INSERT TO authenticated
   WITH CHECK (EXISTS (
@@ -41,6 +43,7 @@ CREATE POLICY "Users can create shares for own trips" ON public.trip_shares
     WHERE trips.id = trip_shares.trip_id
       AND trips.user_id = (SELECT auth.uid())
   ));
+DROP POLICY IF EXISTS "Users can delete their own trip shares" ON public.trip_shares;
 CREATE POLICY "Users can delete their own trip shares" ON public.trip_shares
   FOR DELETE TO authenticated
   USING (EXISTS (
@@ -51,10 +54,12 @@ CREATE POLICY "Users can delete their own trip shares" ON public.trip_shares
 
 -- Public trail access: anon and authenticated visitors can read trips that
 -- are explicitly visibility='public'. No write operation is granted.
+DROP POLICY IF EXISTS "Anyone can view public trips" ON public.trips;
 CREATE POLICY "Anyone can view public trips" ON public.trips
   FOR SELECT TO anon, authenticated
   USING (visibility = 'public');
 
+DROP POLICY IF EXISTS "Anyone can view route points of public trips" ON public.route_points;
 CREATE POLICY "Anyone can view route points of public trips" ON public.route_points
   FOR SELECT TO anon, authenticated
   USING (EXISTS (
