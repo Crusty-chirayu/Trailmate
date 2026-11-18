@@ -24,6 +24,9 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://dummy.invalid
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: dummy-anon-key
       - run: npm test
 
   e2e:
